@@ -12,7 +12,7 @@ public class Person4 {
   /** Holds the persons real name */
   private String name;
     /**
-     * The constructor, takes in the persons
+     * The constructor, takes in the persons name
      * name
      * @param pname the person's real name
      */
