@@ -30,9 +30,20 @@ public class Person2 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
-	  //Person 2 put your implementation here
-	  return null;
-	}
+        if input.length() == 0 {
+	    	return null
+       	} else {
+       	ArrayList<Character> arr = new ArrayList<Character>();
+       	String shuffle = "";
+       	for(int i =0;i<input.length();i++)
+			arr.add(input.charAt(i));
+        Collections.shuffle(arr);
+       	for(char a : arr)
+           	shuffle+=a;
+       	return shuffle;
+		}
+	 }
+		
 	/**
 	 * Return a string rep of this object
 	 * that varies with an input string
