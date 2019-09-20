@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class gui{
+public class Gui {
     private JFrame welcome;
     private JFrame config;
     private JFrame display;
@@ -33,13 +33,13 @@ public class gui{
     private JButton confirmBtn;
     private ButtonGroup dfGroup;
 
-    public gui(){
+    public Gui(){
         prepareGUI();
     }
 
     public static void main(String args[]) {
-        gui Gui = new gui();
-        Gui.showEventDemo();
+        Gui gui = new Gui();
+        gui.showEventDemo();
     }
 
     private void prepareGUI() {
