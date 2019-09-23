@@ -1,0 +1,179 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ConfigurationScreen {
+    private JFrame configurationScreenFrame;
+    private JLabel name, difficulty, pilot, fighter, merchant, engineer;
+    private JTextField tfName, tfPilot, tfFighter, tfMerchant, tfEngineer;
+    private int credit, diffLevel;
+    private JButton confirmButton;
+    private ButtonGroup difficultyButtonGroup;
+    private JPanel difficultyPanel, radioPanel, southPanel;
+    private GameController gameController;
+
+    public ConfigurationScreen(GameController gameController) {
+        this.gameController = gameController;
+        configure();
+    }
+
+    public void setVisible(boolean b) {
+        configurationScreenFrame.setVisible(b);
+    }
+
+    public void configure() {
+        configurationScreenFrame = new JFrame("Configuration Screen");
+        configurationScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        configurationScreenFrame.setSize(400,400);
+        configurationScreenFrame.setLocationRelativeTo(null);
+
+        name = new JLabel("Name");
+        difficulty = new JLabel("Difficulty");
+        pilot = new JLabel("Pilot");
+        fighter = new JLabel("Fighter");
+        merchant = new JLabel("Merchant");
+        engineer = new JLabel("Engineer");
+
+        tfName = new JTextField(10);
+        tfPilot = new JTextField(4);
+        tfFighter = new JTextField(4);
+        tfMerchant = new JTextField(4);
+        tfEngineer = new JTextField(4);
+
+        credit = 0;
+        diffLevel = 1;
+
+        difficultyPanel = new JPanel();
+        difficultyPanel.setLayout(new GridLayout(9, 2));
+        difficultyPanel.add(name);
+        difficultyPanel.add(tfName);
+        difficultyPanel.add(difficulty);
+        JRadioButton easyRadioButton = new JRadioButton("Easy");
+        easyRadioButton.setActionCommand("easy");
+        JRadioButton mediumRadioButton = new JRadioButton("Medium");
+        mediumRadioButton.setActionCommand("medium");
+        JRadioButton hardRadioButton = new JRadioButton("Hard");
+        hardRadioButton.setActionCommand("hard");
+        difficultyButtonGroup = new ButtonGroup();
+        difficultyButtonGroup.add(easyRadioButton);
+        difficultyButtonGroup.add(mediumRadioButton);
+        difficultyButtonGroup.add(hardRadioButton);
+
+        easyRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                // TODO Auto-generated method stub
+                credit = 1000;
+                diffLevel = 1;
+            }
+        });
+        mediumRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                credit = 500;
+                diffLevel = 2;
+            }
+        });
+        hardRadioButton.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                credit = 100;
+                diffLevel = 3;
+            }
+        });
+
+        radioPanel = new JPanel();
+        radioPanel.setLayout(null);
+        radioPanel.add(easyRadioButton);
+        radioPanel.add(mediumRadioButton);
+        radioPanel.add(hardRadioButton);
+        easyRadioButton.setBounds(0, 0, 60, 30);
+        mediumRadioButton.setBounds(60, 0, 80, 30);
+        hardRadioButton.setBounds(140, 0, 70, 30);
+        difficultyPanel.add(radioPanel);
+        difficultyPanel.add(pilot);
+        difficultyPanel.add(tfPilot);
+        difficultyPanel.add(fighter);
+        difficultyPanel.add(tfFighter);
+        difficultyPanel.add(merchant);
+        difficultyPanel.add(tfMerchant);
+        difficultyPanel.add(engineer);
+        difficultyPanel.add(tfEngineer);
+
+        southPanel = new JPanel();
+        southPanel.setLayout(new GridLayout(1, 2));
+
+        confirmButton = new JButton("Confirm");
+        //confirmButton.setActionCommand("confirm");
+
+        confirmButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("hi");
+                //gameController.showConfigurationScreen();
+
+
+
+                int pilot = parseInt(tfPilot);
+                int fighter = parseInt(tfFighter);
+                int merchant = parseInt(tfMerchant);
+                int engineer = parseInt(tfEngineer);
+                int sum = pilot + fighter + merchant + engineer;
+
+                if(tfName.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter your name!",
+                            "Message", JOptionPane.ERROR_MESSAGE);
+                    throw new NullPointerException("Please enter your name!");
+                }
+
+                if ((diffLevel == 1 && sum > 1000) || (diffLevel == 2 && sum > 500)
+                        || (diffLevel == 3 && sum > 100)) {
+                    JOptionPane.showMessageDialog(null, "You don't have enough credits!",
+                            "Message", JOptionPane.ERROR_MESSAGE);
+                } else if ((diffLevel == 1 && sum < 1000) || (diffLevel == 2 && sum < 500)
+                        || (diffLevel == 3 && sum < 100)) {
+                    JOptionPane.showMessageDialog(null, "Please use all your credits!",
+                            "Message", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String name = tfName.getText();
+                    JLabel displayName = new JLabel();
+                    JLabel displaySkill = new JLabel();
+                    displayName.setText("name: " + name);
+                    displaySkill.setText("<html>Pilot Skill Points: " + pilot
+                            + "<br>Fighter Skill Points:" + fighter
+                            + "<br>Merchant Skill Points: " + merchant
+                            + "<br>Engineer Skill Points: " + engineer + "</html>");
+                    gameController.configurationDisplayScreen.setInformation(displayName, displaySkill);
+                    gameController.showConfigurationDisplayScreen();
+                }
+
+
+
+            }
+        });
+
+        southPanel.add(confirmButton);
+
+        configurationScreenFrame.add(difficultyPanel,BorderLayout.CENTER);
+        configurationScreenFrame.add(southPanel,BorderLayout.SOUTH);
+
+
+
+    }
+
+    public static int parseInt(JTextField tf) {
+        if (tf == null || tf.getText().trim().isEmpty()) {
+            return 0;
+        } else {
+            try {
+                return Integer.parseInt(tf.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Please enter valid number!",
+                        "Message", JOptionPane.ERROR_MESSAGE);
+                throw new IllegalArgumentException("Please enter valid number!");
+            }
+        }
+    }
+
+
+
+}
