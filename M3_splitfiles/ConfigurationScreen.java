@@ -9,6 +9,7 @@ public class ConfigurationScreen {
             , pointsAvailable, creditsAvailable;
     private JTextField tfName, tfPilot, tfFighter, tfMerchant, tfEngineer;
     private int skillPoints, diffLevel, credits;
+    private String diffStr;
     private JButton confirmButton;
     private ButtonGroup difficultyButtonGroup;
     private JPanel difficultyPanel, radioPanel, southPanel;
@@ -71,6 +72,7 @@ public class ConfigurationScreen {
                 skillPoints = 20;
                 diffLevel = 1;
                 credits = 1000;
+                diffStr = "Easy";
                 updateSkillsAvail();
                 updateCredits();
             }
@@ -81,6 +83,7 @@ public class ConfigurationScreen {
                 skillPoints = 16;
                 diffLevel = 2;
                 credits = 500;
+                diffStr = "Medium";
                 updateSkillsAvail();
                 updateCredits();
             }
@@ -91,6 +94,7 @@ public class ConfigurationScreen {
                 skillPoints = 12;
                 diffLevel = 3;
                 credits = 200;
+                diffStr = "Hard";
                 updateSkillsAvail();
                 updateCredits();
             }
@@ -158,7 +162,8 @@ public class ConfigurationScreen {
                             + "<br>Merchant Skill Points: " + merchant
                             + "<br>Engineer Skill Points: " + engineer + "</html>");
                     displayCredit.setText("credits: " + credits);
-                    gameController.configurationDisplayScreen.setInformation(displayName, displaySkill, displayCredit);
+                    gameController.configurationDisplayScreen.setInformation(displayName, displaySkill
+                            , displayCredit, new JLabel("Difficulty: " + diffStr));
                     gameController.showConfigurationDisplayScreen();
                 }
 
