@@ -1,12 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.event.*;
 
 public class ConfigurationScreen {
     private JFrame configurationScreenFrame;
-    private JLabel name, difficulty, pilot, fighter, merchant, engineer;
+    private JLabel name, difficulty, pilot, fighter, merchant, engineer
+            , pointsAvailable, creditsAvailable;
     private JTextField tfName, tfPilot, tfFighter, tfMerchant, tfEngineer;
-    private int credit, diffLevel;
+    private int skillPoints, diffLevel, credits;
     private JButton confirmButton;
     private ButtonGroup difficultyButtonGroup;
     private JPanel difficultyPanel, radioPanel, southPanel;
@@ -33,15 +35,19 @@ public class ConfigurationScreen {
         fighter = new JLabel("Fighter");
         merchant = new JLabel("Merchant");
         engineer = new JLabel("Engineer");
+        pointsAvailable = new JLabel("Skill points available: ");
+        creditsAvailable = new JLabel("Credits available: ");
 
         tfName = new JTextField(10);
-        tfPilot = new JTextField(4);
-        tfFighter = new JTextField(4);
-        tfMerchant = new JTextField(4);
-        tfEngineer = new JTextField(4);
+        tfPilot = new JTextField("0", 4);
+        tfFighter = new JTextField("0", 4);
+        tfMerchant = new JTextField("0", 4);
+        tfEngineer = new JTextField("0", 4);
+        armTextFields();
 
-        credit = 0;
+        skillPoints = 0;
         diffLevel = 1;
+        credits = 0;
 
         difficultyPanel = new JPanel();
         difficultyPanel.setLayout(new GridLayout(9, 2));
@@ -62,23 +68,31 @@ public class ConfigurationScreen {
         easyRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                // TODO Auto-generated method stub
-                credit = 1000;
+                skillPoints = 20;
                 diffLevel = 1;
+                credits = 1000;
+                updateSkillsAvail();
+                updateCredits();
             }
         });
         mediumRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                credit = 500;
+                skillPoints = 16;
                 diffLevel = 2;
+                credits = 500;
+                updateSkillsAvail();
+                updateCredits();
             }
         });
         hardRadioButton.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                credit = 100;
+                skillPoints = 12;
                 diffLevel = 3;
+                credits = 200;
+                updateSkillsAvail();
+                updateCredits();
             }
         });
 
@@ -99,6 +113,7 @@ public class ConfigurationScreen {
         difficultyPanel.add(tfMerchant);
         difficultyPanel.add(engineer);
         difficultyPanel.add(tfEngineer);
+        difficultyPanel.add(creditsAvailable);
 
         southPanel = new JPanel();
         southPanel.setLayout(new GridLayout(1, 2));
@@ -108,7 +123,6 @@ public class ConfigurationScreen {
 
         confirmButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("hi");
                 //gameController.showConfigurationScreen();
 
 
@@ -125,24 +139,26 @@ public class ConfigurationScreen {
                     throw new NullPointerException("Please enter your name!");
                 }
 
-                if ((diffLevel == 1 && sum > 1000) || (diffLevel == 2 && sum > 500)
-                        || (diffLevel == 3 && sum > 100)) {
-                    JOptionPane.showMessageDialog(null, "You don't have enough credits!",
+                if ((diffLevel == 1 && sum > 20) || (diffLevel == 2 && sum > 16)
+                        || (diffLevel == 3 && sum > 12)) {
+                    JOptionPane.showMessageDialog(null, "You don't have enough skill points!",
                             "Message", JOptionPane.ERROR_MESSAGE);
-                } else if ((diffLevel == 1 && sum < 1000) || (diffLevel == 2 && sum < 500)
-                        || (diffLevel == 3 && sum < 100)) {
-                    JOptionPane.showMessageDialog(null, "Please use all your credits!",
+                } else if ((diffLevel == 1 && sum < 20) || (diffLevel == 2 && sum < 16)
+                        || (diffLevel == 3 && sum < 12)) {
+                    JOptionPane.showMessageDialog(null, "Please use all your skill points!",
                             "Message", JOptionPane.ERROR_MESSAGE);
                 } else {
                     String name = tfName.getText();
                     JLabel displayName = new JLabel();
                     JLabel displaySkill = new JLabel();
+                    JLabel displayCredit = new JLabel();
                     displayName.setText("name: " + name);
                     displaySkill.setText("<html>Pilot Skill Points: " + pilot
                             + "<br>Fighter Skill Points:" + fighter
                             + "<br>Merchant Skill Points: " + merchant
                             + "<br>Engineer Skill Points: " + engineer + "</html>");
-                    gameController.configurationDisplayScreen.setInformation(displayName, displaySkill);
+                    displayCredit.setText("credits: " + credits);
+                    gameController.configurationDisplayScreen.setInformation(displayName, displaySkill, displayCredit);
                     gameController.showConfigurationDisplayScreen();
                 }
 
@@ -152,6 +168,7 @@ public class ConfigurationScreen {
         });
 
         southPanel.add(confirmButton);
+        southPanel.add(pointsAvailable);
 
         configurationScreenFrame.add(difficultyPanel,BorderLayout.CENTER);
         configurationScreenFrame.add(southPanel,BorderLayout.SOUTH);
@@ -172,6 +189,70 @@ public class ConfigurationScreen {
                 throw new IllegalArgumentException("Please enter valid number!");
             }
         }
+    }
+    public void updateSkillsAvail() {
+//        int pilotPoints = parseInt(tfPilot);
+//        int fighterPoints = parseInt(tfFighter);
+//        int merchantPoints = parseInt(tfMerchant);
+//        int engineerPoints = parseInt(tfEngineer);
+        int[] pointTotal = {parseInt(tfPilot), parseInt(tfFighter), parseInt(tfMerchant), parseInt(tfEngineer)};
+        int sum = 0;
+        for (int ea : pointTotal) {
+            sum += ea;
+        }
+        int available = skillPoints - sum;
+        pointsAvailable.setText("Skill points available: " + available);
+    }
+
+    public void updateCredits() {
+        creditsAvailable.setText("Credits available: " + credits);
+    }
+
+    public void armTextFields() {
+        tfEngineer.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+        });
+        tfMerchant.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+        });
+        tfFighter.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+        });
+        tfPilot.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateSkillsAvail();
+            }
+        });
     }
 
 

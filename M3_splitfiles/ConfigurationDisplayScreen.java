@@ -4,20 +4,23 @@ import java.awt.event.*;
 
 public class ConfigurationDisplayScreen {
     private JFrame configurationDisplayScreenFrame;
-    private JLabel displayName, displaySkill;
+    private JLabel displayName, displaySkill, displayCredits;
     private GameController gameController;
     public ConfigurationDisplayScreen(GameController gameController) {
         this.gameController = gameController;
         configure();
     }
 
-    public void setInformation(JLabel displayName, JLabel displaySkill) {
+    public void setInformation(JLabel displayName, JLabel displaySkill, JLabel displayCredits) {
         this.displayName = displayName;
         this.displaySkill = displaySkill;
-        displayName.setBounds(120,160,200,30);
-        displaySkill.setBounds(100,185,200,100);
+        this.displayCredits = displayCredits;
+        displayName.setBounds(70, 60, 200, 30);
+        displaySkill.setBounds(70, 100, 200, 100);
+        displayCredits.setBounds(70, 210, 200, 30);
         configurationDisplayScreenFrame.add(displayName);
         configurationDisplayScreenFrame.add(displaySkill);
+        configurationDisplayScreenFrame.add(displayCredits);
     }
 
     public void configure() {

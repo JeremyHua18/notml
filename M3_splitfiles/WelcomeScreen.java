@@ -41,7 +41,6 @@ public class WelcomeScreen {
 
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("hi");
                 gameController.showConfigurationScreen();
             }
         });
