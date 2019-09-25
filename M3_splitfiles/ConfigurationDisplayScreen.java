@@ -4,7 +4,8 @@ import java.awt.event.*;
 
 public class ConfigurationDisplayScreen {
     private JFrame configurationDisplayScreenFrame;
-    private JLabel displayName, displaySkill, displayCredits;
+    private JLabel displayName, displaySkill, displayCredits, astroDisp2;
+    private ImageIcon astronaut2;
     private GameController gameController;
     public ConfigurationDisplayScreen(GameController gameController) {
         this.gameController = gameController;
@@ -15,9 +16,14 @@ public class ConfigurationDisplayScreen {
         this.displayName = displayName;
         this.displaySkill = displaySkill;
         this.displayCredits = displayCredits;
-        displayName.setBounds(70, 60, 200, 30);
-        displaySkill.setBounds(70, 100, 200, 100);
-        displayCredits.setBounds(70, 210, 200, 30);
+        displayName.setBounds(70, 100, 200, 30);
+        displaySkill.setBounds(70, 120, 200, 100);
+        displayCredits.setBounds(70, 230, 200, 30);
+        this.astronaut2 = new ImageIcon(getClass().getResource("astronaut2.png"));
+        this.astroDisp2 = new JLabel(astronaut2);
+        astroDisp2.setSize(200, 200);
+        astroDisp2.setBounds(30, 20, 100, 80);
+        configurationDisplayScreenFrame.add(astroDisp2);
         configurationDisplayScreenFrame.add(displayName);
         configurationDisplayScreenFrame.add(displaySkill);
         configurationDisplayScreenFrame.add(displayCredits);
