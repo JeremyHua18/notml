@@ -30,6 +30,7 @@ public class ConfigurationDisplayScreen {
         configurationDisplayScreenFrame.setLocationRelativeTo(null);
         configurationDisplayScreenFrame.setLayout(null);
 
+
     }
 
     public void setVisible(boolean b) {
