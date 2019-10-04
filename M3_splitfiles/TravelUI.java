@@ -24,16 +24,20 @@ public class TravelUI {
         universeFrame.setLayout(null);
         JButton locationButton;
         JLabel locationLabel;
+        JLabel techLevelLabel;
         int count = 0;
 
         for (MapRegion location : universe.getMapRegionArray()) {
             int count1 = count;
             locationLabel = new JLabel("(" + universe.getMapRegionArray().get(count1).getxCoordinate() + ", " + universe.getMapRegionArray().get(count1).getyCoordinate() + ")");
             locationLabel.setBounds(50, 20 + count * 30, 100,30);
+            techLevelLabel = new JLabel("Tech Level: " + String.valueOf(universe.getMapRegionArray().get(count1).getTechLevel()));
+            techLevelLabel.setBounds(350,20 + count * 30, 200, 30);
             locationButton = new JButton(location.getRegionName() + " Enter Here");
             locationButton.setBounds(150,20 + count * 30,200,30);
             universeFrame.add(locationButton);
             universeFrame.add(locationLabel);
+            universeFrame.add(techLevelLabel);
             locationButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

@@ -7,7 +7,7 @@ public class LocationUI {
     private MapRegion location;
     private JButton goToUniverseButton;
     private GameController gameController;
-    private JLabel name, coor;
+    private JLabel name, coor, techLevelLabel;
 
     public LocationUI(GameController gameController, MapRegion location) {
         this.location = location;
@@ -30,14 +30,18 @@ public class LocationUI {
         coor = new JLabel("(" + location.getxCoordinate() + "," + location.getyCoordinate() + ")");
         coor.setBounds(150, 160, 200, 30);
 
+        techLevelLabel = new JLabel("Tech Level: " + String.valueOf(location.getTechLevel()));
+        techLevelLabel.setBounds(150, 180, 200, 30);
+
         goToUniverseButton = new JButton("Go back to map");
         goToUniverseButton.setSize(100, 30);
-        goToUniverseButton.setBounds(75, 200, 200, 30);
+        goToUniverseButton.setBounds(75, 250, 200, 30);
 
 
         locationFrame.add(name);
         locationFrame.add(coor);
         locationFrame.add(goToUniverseButton);
+        locationFrame.add(techLevelLabel);
 
 
         goToUniverseButton.addActionListener(new ActionListener() {

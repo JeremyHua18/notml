@@ -200,9 +200,6 @@ public class ConfigurationScreen extends Player{
             }
 
         });
-
-
-
         radioPanel = new JPanel();
 
         radioPanel.setLayout(null);
@@ -259,7 +256,6 @@ public class ConfigurationScreen extends Player{
 
                 //gameController.showConfigurationScreen();
 
-
                 int pilot = parseInt(tfPilot);
 
                 setPilotSkill(pilot);
@@ -278,8 +274,6 @@ public class ConfigurationScreen extends Player{
 
                 int sum = pilot + fighter + merchant + engineer;
 
-
-
                 if(tfName.getText().isEmpty()) {
 
                     JOptionPane.showMessageDialog(null, "Please enter your name!",
@@ -289,8 +283,6 @@ public class ConfigurationScreen extends Player{
                     throw new NullPointerException("Please enter your name!");
 
                 }
-
-
 
                 if ((diffLevel == 1 && sum > 20) || (diffLevel == 2 && sum > 16)
 
@@ -335,15 +327,7 @@ public class ConfigurationScreen extends Player{
                             , displayCredit, new JLabel("Difficulty: " + diffStr));
 
                     gameController.showConfigurationDisplayScreen();
-
                 }
-
-
-
-
-
-
-
             }
 
         });
@@ -353,7 +337,6 @@ public class ConfigurationScreen extends Player{
         southPanel.add(confirmButton);
 
         southPanel.add(pointsAvailable);
-
 
 
         configurationScreenFrame.add(difficultyPanel,BorderLayout.CENTER);

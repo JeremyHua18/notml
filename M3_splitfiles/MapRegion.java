@@ -13,6 +13,7 @@ public class MapRegion {
     public MapRegion(String regionName) {
         setRandomTechLevel();
         this.regionName = regionName;
+        this.setRandomTechLevel();
     }
 
     public int getxCoordinate() {
@@ -25,6 +26,10 @@ public class MapRegion {
 
     public String getRegionName() {
         return regionName;
+    }
+
+    public TechLevel getTechLevel() {
+        return techLevel;
     }
 
     public void setCoordinates(int x, int y) {
