@@ -3,53 +3,80 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class Map {
-    private MapRegion sunRegion, mercuryRegion, venusRegion, earthRegion, marsRegion;
-    private MapRegion jupiterRegion, saturnRegion, uranusRegion, neptuneRegion, plutoRegion;
-    private MapRegion[] mapRegionArray = {sunRegion, mercuryRegion, venusRegion, earthRegion, marsRegion,
-            jupiterRegion, saturnRegion, uranusRegion, neptuneRegion, plutoRegion};
+    private ArrayList<MapRegion> mapRegionArray;
+    private ArrayList<Integer> xCoorArray;
+    private ArrayList<Integer> yCoorArray;
 
     public Map() {
-        this.sunRegion = new MapRegion("Sun");
-        this.mercuryRegion = new MapRegion("Mercury");
-        this.venusRegion = new MapRegion("Venus");
-        this.earthRegion = new MapRegion("Earth");
-        this.marsRegion = new MapRegion("Mars");
-        this.jupiterRegion = new MapRegion("Jupiter");
-        this.saturnRegion = new MapRegion("Saturn");
-        this.uranusRegion = new MapRegion("Uranus");
-        this.neptuneRegion = new MapRegion("Neptune");
-        this.plutoRegion = new MapRegion("Pluto");
+        MapRegion sunRegion = new MapRegion("Sun");
+        MapRegion mercuryRegion = new MapRegion("Mercury");
+        MapRegion venusRegion = new MapRegion("Venus");
+        MapRegion earthRegion = new MapRegion("Earth");
+        MapRegion marsRegion = new MapRegion("Mars");
+        MapRegion jupiterRegion = new MapRegion("Jupiter");
+        MapRegion saturnRegion = new MapRegion("Saturn");
+        MapRegion uranusRegion = new MapRegion("Uranus");
+        MapRegion neptuneRegion = new MapRegion("Neptune");
+        MapRegion plutoRegion = new MapRegion("Pluto");
+        mapRegionArray = new ArrayList<>();
+        mapRegionArray.add(sunRegion);
+        mapRegionArray.add(mercuryRegion);
+        mapRegionArray.add(venusRegion);
+        mapRegionArray.add(earthRegion);
+        mapRegionArray.add(marsRegion);
+        mapRegionArray.add(jupiterRegion);
+        mapRegionArray.add(saturnRegion);
+        mapRegionArray.add(uranusRegion);
+        mapRegionArray.add(neptuneRegion);
+        mapRegionArray.add(plutoRegion);
+        xCoorArray = new ArrayList<>(10);
+        yCoorArray = new ArrayList<>(10);
+
         for (MapRegion mapRegion:mapRegionArray) {
             generateRandomCoordinates(mapRegion);
         }
     }
 
-    public void generateRandomCoordinates(MapRegion mapRegion) { // THIS NEEDS WORK
+    public ArrayList<MapRegion> getMapRegionArray() {
+        return mapRegionArray;
+    }
+
+
+    public void generateRandomCoordinates(MapRegion mapRegion) {
         Random random = new Random();
-        int randomxValue, randomyValue;
-        boolean enoughxDistanceSatisfied = false;
-        boolean enoughyDistanceSatisfied = false;
-        ArrayList<Integer> xCoordinatesArray = new ArrayList<>(10);
-        ArrayList<Integer> yCoordinatesArray = new ArrayList<>(10);
-        while (!(enoughxDistanceSatisfied && enoughyDistanceSatisfied)) {
+        int randomxValue;
+        int randomyValue;
+        boolean enoughxDistanceSatisfied = true;
+        boolean enoughyDistanceSatisfied = true;
+
+        do {
+            enoughxDistanceSatisfied = true;
             randomxValue = random.nextInt(400) - 200;
-            randomyValue = random.nextInt(400) - 200;
-            for (Integer element:xCoordinatesArray) {
-                if (java.lang.Math.abs(element - randomxValue) <= 5) {
+            for (int xCoor : xCoorArray) {
+                if (Math.abs(xCoor - randomxValue) <= 5) {
                     enoughxDistanceSatisfied = false;
-                    break;
                 }
             }
-            for (Integer element:yCoordinatesArray) {
-                if (java.lang.Math.abs(element - randomyValue) <= 5) {
+
+        } while (!enoughxDistanceSatisfied);
+
+        do {
+            enoughyDistanceSatisfied = true;
+            randomyValue = random.nextInt(400) - 200;
+            for (int yCoor : yCoorArray) {
+                if (Math.abs(yCoor - randomyValue) <= 5) {
                     enoughyDistanceSatisfied = false;
-                    break;
                 }
             }
-        }
-        mapRegion.setCoordinates(randomxValue, randomyValue);
+        } while (!enoughyDistanceSatisfied);
+
+        mapRegion.setCoordinates(randomxValue,randomyValue);
+
+        xCoorArray.add(randomxValue);
+        yCoorArray.add(randomyValue);
     }
 
 }

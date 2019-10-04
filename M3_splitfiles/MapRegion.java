@@ -1,3 +1,4 @@
+import javax.print.DocFlavor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,6 +21,10 @@ public class MapRegion {
 
     public int getyCoordinate() {
         return this.yCoordinate;
+    }
+
+    public String getRegionName() {
+        return regionName;
     }
 
     public void setCoordinates(int x, int y) {

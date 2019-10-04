@@ -398,13 +398,6 @@ public class ConfigurationScreen extends Player{
 
     public void updateSkillsAvail() {
 
-//        int pilotPoints = parseInt(tfPilot);
-
-//        int fighterPoints = parseInt(tfFighter);
-
-//        int merchantPoints = parseInt(tfMerchant);
-
-//        int engineerPoints = parseInt(tfEngineer);
 
         int[] pointTotal = {parseInt(tfPilot), parseInt(tfFighter), parseInt(tfMerchant), parseInt(tfEngineer)};
 

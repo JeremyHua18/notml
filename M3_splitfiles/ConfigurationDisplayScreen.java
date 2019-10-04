@@ -7,6 +7,7 @@ public class ConfigurationDisplayScreen {
     private JLabel displayName, displaySkill, displayCredits, astroDisp2, displayDiff;
     private ImageIcon astronaut2;
     private GameController gameController;
+    private JButton startGameButton;
     public ConfigurationDisplayScreen(GameController gameController) {
         this.gameController = gameController;
         configure();
@@ -30,6 +31,7 @@ public class ConfigurationDisplayScreen {
         configurationDisplayScreenFrame.add(displaySkill);
         configurationDisplayScreenFrame.add(displayCredits);
         configurationDisplayScreenFrame.add(displayDiff);
+
     }
 
     public void configure() {
@@ -38,11 +40,20 @@ public class ConfigurationDisplayScreen {
         configurationDisplayScreenFrame.setSize(400,400);
         configurationDisplayScreenFrame.setLocationRelativeTo(null);
         configurationDisplayScreenFrame.setLayout(null);
-
+        startGameButton = new JButton("Enter Game");
+        startGameButton.setSize(100,30);
+        startGameButton.setBounds(150,200,100,30);
+        configurationDisplayScreenFrame.add(startGameButton);
+        startGameButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gameController.showTravelUI();
+            }
+        });
 
     }
 
     public void setVisible(boolean b) {
         configurationDisplayScreenFrame.setVisible(b);
     }
+
 }
