@@ -30,6 +30,7 @@ public class GameController {
     }
     public void showTravelUI() {
         configurationDisplayScreen.setVisible(false);
+        locationUI.setVisible(false);
         travelUI.setVisible(true);
     }
     public void showLocationUI(MapRegion aPlanet) {

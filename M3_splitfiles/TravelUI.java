@@ -7,7 +7,6 @@ public class TravelUI {
     private GameController gameController;
     private Map universe;
     private Player player;
-    private JButton sunRegionButton, mercuryRegionButton, venusRegionButton, earthRegionButton, marsRegionButton, jupiterRegionButton, saturnRegionButton, uranusRegionButton, neptuneRegionButton, plutoRegionButton;
 
     public TravelUI(GameController gameController) {
         this.universe = new Map();
@@ -24,14 +23,17 @@ public class TravelUI {
         universeFrame.setSize(800, 800);
         universeFrame.setLayout(null);
         JButton locationButton;
+        JLabel locationLabel;
         int count = 0;
 
         for (MapRegion location : universe.getMapRegionArray()) {
             int count1 = count;
-            System.out.println(count);
+            locationLabel = new JLabel("(" + universe.getMapRegionArray().get(count1).getxCoordinate() + ", " + universe.getMapRegionArray().get(count1).getyCoordinate() + ")");
+            locationLabel.setBounds(50, 20 + count * 30, 100,30);
             locationButton = new JButton(location.getRegionName() + " Enter Here");
             locationButton.setBounds(150,20 + count * 30,200,30);
             universeFrame.add(locationButton);
+            universeFrame.add(locationLabel);
             locationButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

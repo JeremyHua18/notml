@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class ConfigurationDisplayScreen {
     private JFrame configurationDisplayScreenFrame;
@@ -8,8 +9,10 @@ public class ConfigurationDisplayScreen {
     private ImageIcon astronaut2;
     private GameController gameController;
     private JButton startGameButton;
+    private Map universe;
     public ConfigurationDisplayScreen(GameController gameController) {
         this.gameController = gameController;
+        universe = new Map();
         configure();
     }
 
@@ -44,9 +47,11 @@ public class ConfigurationDisplayScreen {
         startGameButton.setSize(100,30);
         startGameButton.setBounds(150,200,100,30);
         configurationDisplayScreenFrame.add(startGameButton);
+        Random random = new Random();
+        int firstInt = random.nextInt(10);
         startGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gameController.showTravelUI();
+                gameController.showLocationUI(universe.getMapRegionArray().get(firstInt));
             }
         });
 
