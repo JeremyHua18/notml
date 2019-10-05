@@ -11,6 +11,7 @@ public class MapRegion {
     private String regionName;
 
     public MapRegion(String regionName) {
+
         setRandomTechLevel();
         this.regionName = regionName;
         this.setRandomTechLevel();

@@ -9,98 +9,54 @@ import javax.swing.event.*;
 
 
 
-public class ConfigurationScreen extends Player{
+public class ConfigurationScreen extends JFrame {
 
     private JFrame configurationScreenFrame;
-
     private JLabel name, difficulty, pilot, fighter, merchant, engineer
-
             , pointsAvailable, creditsAvailable;
-
     private JTextField tfName, tfPilot, tfFighter, tfMerchant, tfEngineer;
-
     private int skillPoints, diffLevel, credits;
-
     private String diffStr;
-
     private JButton confirmButton;
-
     private ButtonGroup difficultyButtonGroup;
-
     private JPanel difficultyPanel, radioPanel, southPanel;
-
     private GameController gameController;
 
-
-
     public ConfigurationScreen(GameController gameController) {
-
         this.gameController = gameController;
-
         configure();
-
     }
-
-
 
     public void setVisible(boolean b) {
-
         configurationScreenFrame.setVisible(b);
-
     }
 
-
-
     public void configure() {
-
         configurationScreenFrame = new JFrame("Configuration Screen");
-
         configurationScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         configurationScreenFrame.setSize(400,400);
-
         configurationScreenFrame.setLocationRelativeTo(null);
 
-
-
         name = new JLabel("Name");
-
         difficulty = new JLabel("Difficulty");
-
         pilot = new JLabel("Pilot");
-
         fighter = new JLabel("Fighter");
-
         merchant = new JLabel("Merchant");
-
         engineer = new JLabel("Engineer");
-
         pointsAvailable = new JLabel("Skill points available: ");
-
         creditsAvailable = new JLabel("Credits available: ");
 
-
-
         tfName = new JTextField(10);
-
         tfPilot = new JTextField("0", 4);
-
         tfFighter = new JTextField("0", 4);
-
         tfMerchant = new JTextField("0", 4);
-
         tfEngineer = new JTextField("0", 4);
 
         armTextFields();
 
-
-
         skillPoints = 0;
-
         diffLevel = 1;
-
         credits = 0;
-
 
 
         difficultyPanel = new JPanel();
@@ -248,262 +204,124 @@ public class ConfigurationScreen extends Player{
 
         //confirmButton.setActionCommand("confirm");
 
-
-
         confirmButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-
                 //gameController.showConfigurationScreen();
-
                 int pilot = parseInt(tfPilot);
-
-                setPilotSkill(pilot);
-
                 int fighter = parseInt(tfFighter);
-
-                setFighterSkill(fighter);
-
                 int merchant = parseInt(tfMerchant);
-
-                setMerchantSkill(merchant);
-
                 int engineer = parseInt(tfEngineer);
-
-                setEngineerSkill(engineer);
-
                 int sum = pilot + fighter + merchant + engineer;
-
                 if(tfName.getText().isEmpty()) {
-
                     JOptionPane.showMessageDialog(null, "Please enter your name!",
-
                             "Message", JOptionPane.ERROR_MESSAGE);
-
                     throw new NullPointerException("Please enter your name!");
-
                 }
-
                 if ((diffLevel == 1 && sum > 20) || (diffLevel == 2 && sum > 16)
-
                         || (diffLevel == 3 && sum > 12)) {
-
                     JOptionPane.showMessageDialog(null, "You don't have enough skill points!",
-
                             "Message", JOptionPane.ERROR_MESSAGE);
-
                 } else if ((diffLevel == 1 && sum < 20) || (diffLevel == 2 && sum < 16)
-
                         || (diffLevel == 3 && sum < 12)) {
-
                     JOptionPane.showMessageDialog(null, "Please use all your skill points!",
-
                             "Message", JOptionPane.ERROR_MESSAGE);
-
                 } else {
-
                     String name = tfName.getText();
-
                     JLabel displayName = new JLabel();
-
                     JLabel displaySkill = new JLabel();
-
                     JLabel displayCredit = new JLabel();
-
                     displayName.setText("name: " + name);
-
                     displaySkill.setText("<html>Pilot Skill Points: " + pilot
-
                             + "<br>Fighter Skill Points:" + fighter
-
                             + "<br>Merchant Skill Points: " + merchant
-
                             + "<br>Engineer Skill Points: " + engineer + "</html>");
-
                     displayCredit.setText("credits: " + credits);
-
+                    gameController.setPlayer(new Player(fighter, engineer, pilot, merchant, credits));
                     gameController.configurationDisplayScreen.setInformation(displayName, displaySkill
-
                             , displayCredit, new JLabel("Difficulty: " + diffStr));
-
                     gameController.showConfigurationDisplayScreen();
                 }
             }
-
         });
 
-
-
         southPanel.add(confirmButton);
-
         southPanel.add(pointsAvailable);
-
-
         configurationScreenFrame.add(difficultyPanel,BorderLayout.CENTER);
-
         configurationScreenFrame.add(southPanel,BorderLayout.SOUTH);
-
-
-
-
-
-
-
     }
 
-
-
     public static int parseInt(JTextField tf) {
-
         if (tf == null || tf.getText().trim().isEmpty()) {
-
             return 0;
-
         } else {
-
             try {
-
                 return Integer.parseInt(tf.getText());
-
             } catch (NumberFormatException e) {
-
                 JOptionPane.showMessageDialog(null, "Please enter valid number!",
-
                         "Message", JOptionPane.ERROR_MESSAGE);
-
                 throw new IllegalArgumentException("Please enter valid number!");
-
             }
-
         }
-
     }
 
     public void updateSkillsAvail() {
-
-
         int[] pointTotal = {parseInt(tfPilot), parseInt(tfFighter), parseInt(tfMerchant), parseInt(tfEngineer)};
-
         int sum = 0;
-
         for (int ea : pointTotal) {
-
             sum += ea;
-
         }
-
         int available = skillPoints - sum;
-
         pointsAvailable.setText("Skill points available: " + available);
-
     }
-
-
 
     public void updateCredits() {
-
         creditsAvailable.setText("Credits available: " + credits);
-
     }
-
-
 
     public void armTextFields() {
-
         tfEngineer.getDocument().addDocumentListener(new DocumentListener() {
-
             public void changedUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void removeUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void insertUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
         });
-
         tfMerchant.getDocument().addDocumentListener(new DocumentListener() {
-
             public void changedUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void removeUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void insertUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
         });
-
         tfFighter.getDocument().addDocumentListener(new DocumentListener() {
-
             public void changedUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void removeUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void insertUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
         });
-
         tfPilot.getDocument().addDocumentListener(new DocumentListener() {
-
             public void changedUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void removeUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
             public void insertUpdate(DocumentEvent e) {
-
                 updateSkillsAvail();
-
             }
-
         });
-
     }
-
-
-
-
-
-
-
 }

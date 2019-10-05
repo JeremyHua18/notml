@@ -23,7 +23,7 @@ public class ConfigurationDisplayScreen {
         this.displayDiff = displayDiff;
         displayName.setBounds(70, 100, 200, 30);
         displaySkill.setBounds(70, 120, 200, 100);
-        displayCredits.setBounds(70, 230, 200, 30);
+        displayCredits.setBounds(70, 200, 200, 30);
         displayDiff.setBounds(70, 115, 200, 30);
         this.astronaut2 = new ImageIcon(getClass().getResource("astronaut2.png"));
         this.astroDisp2 = new JLabel(astronaut2);
@@ -43,9 +43,9 @@ public class ConfigurationDisplayScreen {
         configurationDisplayScreenFrame.setSize(400,400);
         configurationDisplayScreenFrame.setLocationRelativeTo(null);
         configurationDisplayScreenFrame.setLayout(null);
-        startGameButton = new JButton("Enter Game");
-        startGameButton.setSize(100,30);
-        startGameButton.setBounds(150,200,100,30);
+        startGameButton = new JButton("Enter Game!");
+        startGameButton.setSize(200,30);
+        startGameButton.setBounds(115,250,150,30);
         configurationDisplayScreenFrame.add(startGameButton);
         Random random = new Random();
         int firstInt = random.nextInt(10);

@@ -7,6 +7,8 @@ public class TravelUI {
     private GameController gameController;
     private Map universe;
     private Player player;
+    private ImageIcon starBG, planet;
+    private JLabel starBGdisp, planetDisp, planetName;
 
     public TravelUI(GameController gameController) {
         this.universe = new Map();
@@ -18,23 +20,44 @@ public class TravelUI {
         universeFrame.setVisible(b);
     }
     public void configure() {
+        starBG = new ImageIcon(getClass().getResource("starBG.gif"));
+        starBGdisp = new JLabel(starBG);
+        starBGdisp.setSize(starBG.getIconWidth(), starBG.getIconHeight());
+        starBGdisp.setBounds(0, 350, 500, 567);
+
         universeFrame = new JFrame("The map of the Universe");
         universeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        universeFrame.setSize(800, 800);
+        universeFrame.setSize(510, 950);
         universeFrame.setLayout(null);
+        //universeFrame.add(starBGdisp);
         JButton locationButton;
         JLabel locationLabel;
         JLabel techLevelLabel;
+        JLabel planetDisp;
+        JLabel planetName;
+        ImageIcon planet;
+
         int count = 0;
 
         for (MapRegion location : universe.getMapRegionArray()) {
             int count1 = count;
-            locationLabel = new JLabel("(" + universe.getMapRegionArray().get(count1).getxCoordinate() + ", " + universe.getMapRegionArray().get(count1).getyCoordinate() + ")");
-            locationLabel.setBounds(50, 20 + count * 30, 100,30);
+            int x = universe.getMapRegionArray().get(count1).getxCoordinate();
+            int y = universe.getMapRegionArray().get(count1).getyCoordinate();
+            locationLabel = new JLabel("(" + x + ", " + y + ")");
+            locationLabel.setBounds(20, 20 + count * 30, 100,30);
             techLevelLabel = new JLabel("Tech Level: " + String.valueOf(universe.getMapRegionArray().get(count1).getTechLevel()));
-            techLevelLabel.setBounds(350,20 + count * 30, 200, 30);
-            locationButton = new JButton(location.getRegionName() + " Enter Here");
-            locationButton.setBounds(150,20 + count * 30,200,30);
+            techLevelLabel.setBounds(330,20 + count * 30, 200, 30);
+            locationButton = new JButton("Travel to " + location.getRegionName());
+            locationButton.setBounds(130,20 + count * 30,200,30);
+            try {
+                planet = new ImageIcon(getClass().getResource(location.getRegionName() + ".png"));
+                planetDisp = new JLabel(planet);
+                planetDisp.setBounds(x + 200 - planet.getIconWidth() / 2
+                        , y + 500 + planet.getIconHeight() / 2, 150, 150);
+                universeFrame.add(planetDisp);
+            } catch (NullPointerException ex) {
+                System.out.println("Planet image failed to load.");
+            }
             universeFrame.add(locationButton);
             universeFrame.add(locationLabel);
             universeFrame.add(techLevelLabel);
@@ -46,99 +69,6 @@ public class TravelUI {
             });
             count++;
         }
-
-        /*sunRegionButton = new JButton("Sun Enter here");
-        sunRegionButton.setBounds(150,20,200,30);
-
-        mercuryRegionButton = new JButton("Mercury Enter here");
-        mercuryRegionButton.setBounds(150,70,200,30);
-
-        venusRegionButton = new JButton("Venus Enter here");
-        universeFrame.add(sunRegionButton);
-        universeFrame.add(mercuryRegionButton);
-        universeFrame.add(venusRegionButton);
-        universeFrame.add(earthRegionButton);
-        universeFrame.add(marsRegionButton);
-        universeFrame.add(jupiterRegionButton);
-        universeFrame.add(saturnRegionButton);
-        universeFrame.add(uranusRegionButton);
-        universeFrame.add(neptuneRegionButton);
-        universeFrame.add(plutoRegionButton);
-
-
-
-        sunRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(new MapRegion("sun"));
-            }
-        });
-
-        mercuryRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(0));
-            }
-        });
-
-        venusRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(1));
-            }
-        });
-
-        earthRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(2));
-            }
-        });
-
-        marsRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(3));
-            }
-        });
-
-        jupiterRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(4));
-            }
-        });
-
-        saturnRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(5));
-            }
-        });
-
-        uranusRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(6));
-            }
-        });
-
-        neptuneRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(7));
-            }
-        });
-
-        saturnRegionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameController.showLocationUI(universe.getMapRegionArray().get(5));
-            }
-        });*/
-
-
-
-
+        universeFrame.setLocationRelativeTo(null);
     }
 }

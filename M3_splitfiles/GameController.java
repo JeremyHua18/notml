@@ -9,12 +9,14 @@ public class GameController {
     public ConfigurationDisplayScreen configurationDisplayScreen;
     public TravelUI travelUI;
     public LocationUI locationUI;
+    private Player player;
 
     public GameController() {
         welcomeScreen = new WelcomeScreen(this);
         configurationScreen = new ConfigurationScreen(this);
         configurationDisplayScreen = new ConfigurationDisplayScreen(this);
         travelUI = new TravelUI(this);
+        player = null;
     }
 
     public void showWelcomeScreen() {
@@ -34,9 +36,16 @@ public class GameController {
         travelUI.setVisible(true);
     }
     public void showLocationUI(MapRegion aPlanet) {
+        configurationDisplayScreen.setVisible(false);
         locationUI = new LocationUI(this, aPlanet);
         travelUI.setVisible(false);
         locationUI.setVisible(true);
+    }
+    public Player getPlayer() {
+        return player;
+    }
+    public void setPlayer(Player setNewPlayer) {
+        player = setNewPlayer;
     }
 
     public static void main(String[] args) {

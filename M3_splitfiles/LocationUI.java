@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 public class LocationUI {
     private JFrame locationFrame;
     private MapRegion location;
     private JButton goToUniverseButton;
     private GameController gameController;
-    private JLabel name, coor, techLevelLabel;
+    private JLabel name, coor, techLevelLabel, welcomeLabel;
 
     public LocationUI(GameController gameController, MapRegion location) {
         this.location = location;
@@ -23,17 +24,22 @@ public class LocationUI {
         locationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         locationFrame.setSize(400, 400);
         locationFrame.setLayout(null);
+        if (gameController.getPlayer().isJustStarted()) {
+            welcomeLabel = new JLabel("<html>Welcome to the universe,<br/>your journey" +
+                    " begins in the " + location.getRegionName() + " region.</html>");
+            welcomeLabel.setBounds(75, 50, 400, 60);
+            locationFrame.add(welcomeLabel);
+        }
+        name = new JLabel("<html>You're currently in the<br/>" + location.getRegionName() + " region.");
+        name.setBounds(75, 140, 200, 30);
 
-        name = new JLabel(location.getRegionName());
-        name.setBounds(150, 140, 200, 30);
-
-        coor = new JLabel("(" + location.getxCoordinate() + "," + location.getyCoordinate() + ")");
-        coor.setBounds(150, 160, 200, 30);
+        coor = new JLabel("Coordinates: (" + location.getxCoordinate() + "," + location.getyCoordinate() + ")");
+        coor.setBounds(75, 163, 200, 30);
 
         techLevelLabel = new JLabel("Tech Level: " + String.valueOf(location.getTechLevel()));
-        techLevelLabel.setBounds(150, 180, 200, 30);
+        techLevelLabel.setBounds(75, 180, 200, 30);
 
-        goToUniverseButton = new JButton("Go back to map");
+        goToUniverseButton = new JButton("Travel to a new region");
         goToUniverseButton.setSize(100, 30);
         goToUniverseButton.setBounds(75, 250, 200, 30);
 
@@ -46,13 +52,13 @@ public class LocationUI {
 
         goToUniverseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                gameController.getPlayer().setJustStarted(false);
                 gameController.showTravelUI();
             }
         });
 
 
-
-
+        locationFrame.setLocationRelativeTo(null);
     }
 
 }

@@ -13,47 +13,51 @@ Getter/Setter methods for these attributes
 
 public class Player{
 
-    private int FighterSkill, EngineerSkill, MerchantSkill, PilotSkill, credit;
-
+    private int fighterSkill, engineerSkill, merchantSkill, pilotSkill, credit;
+    private boolean justStarted;
     //private Point location = new Point()
-
+    public Player(int fighterSkill, int engineerSkill
+            , int merchantSkill, int pilotSkill, int credit) {
+        this.fighterSkill = fighterSkill;
+        this.engineerSkill = engineerSkill;
+        this.merchantSkill = merchantSkill;
+        this.pilotSkill = pilotSkill;
+        this.justStarted = true;
+    }
     public void setCredit(int credit) {
         this.credit = credit;
     }
-
     public int getCredit() {
         return credit;
     }
-
-    public void setFighterSkill(int FighterSkill) {
-        this.FighterSkill = FighterSkill;
+    public void setFighterSkill(int fighterSkill) {
+        this.fighterSkill = fighterSkill;
     }
-
     public int getFighterSkill() {
-        return FighterSkill;
+        return fighterSkill;
     }
-
-    public void setEngineerSkill(int EngineerSkill) {
-        this.EngineerSkill = EngineerSkill;
+    public void setEngineerSkill(int engineerSkill) {
+        this.engineerSkill = engineerSkill;
     }
-
     public int getEngineerSkill() {
-        return EngineerSkill;
+        return engineerSkill;
     }
-
-    public void setMerchantSkill(int MerchantSkill) {
-        this.MerchantSkill = MerchantSkill;
+    public void setMerchantSkill(int merchantSkill) {
+        this.merchantSkill = merchantSkill;
     }
-
     public int getMerchantSkill() {
-        return MerchantSkill;
+        return merchantSkill;
     }
-
-    public void setPilotSkill(int PilotSkill) {
-        this.PilotSkill = PilotSkill;
+    public void setPilotSkill(int pilotSkill) {
+        this.pilotSkill = pilotSkill;
     }
-
     public int getPilotSkill() {
-        return PilotSkill;
+        return pilotSkill;
+    }
+    public boolean isJustStarted() {
+        return justStarted;
+    }
+    public void setJustStarted(boolean started) {
+        this.justStarted = started;
     }
 }
