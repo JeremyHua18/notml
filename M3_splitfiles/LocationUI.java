@@ -45,7 +45,7 @@ class LocationUI {
 
         goToMarketButton = new JButton("Enter " + location.getRegionName() + "'s market");
         //goToMarketButton.setSize(100, 30);
-        goToMarketButton.setBounds(75, 290, 200, 30);
+        goToMarketButton.setBounds(75, 285, 200, 30);
 
 
         locationFrame.add(name);
