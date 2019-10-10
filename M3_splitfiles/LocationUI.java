@@ -2,11 +2,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
+import java.awt.Font;
 
-public class LocationUI {
+class LocationUI {
     private JFrame locationFrame;
     private MapRegion location;
-    private JButton goToUniverseButton;
+    private JButton goToUniverseButton, goToMarketButton;
     private GameController gameController;
     private JLabel name, coor, techLevelLabel, welcomeLabel;
 
@@ -40,13 +41,18 @@ public class LocationUI {
         techLevelLabel.setBounds(75, 180, 200, 30);
 
         goToUniverseButton = new JButton("Travel to a new region");
-        goToUniverseButton.setSize(100, 30);
+        //goToUniverseButton.setSize(100, 30);
         goToUniverseButton.setBounds(75, 250, 200, 30);
+
+        goToMarketButton = new JButton("Enter " + location.getRegionName() + "'s market");
+        //goToMarketButton.setSize(100, 30);
+        goToMarketButton.setBounds(75, 290, 200, 30);
 
 
         locationFrame.add(name);
         locationFrame.add(coor);
         locationFrame.add(goToUniverseButton);
+        locationFrame.add(goToMarketButton);
         locationFrame.add(techLevelLabel);
 
 
