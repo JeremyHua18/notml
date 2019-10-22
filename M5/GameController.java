@@ -7,6 +7,7 @@ public class GameController {
     private LocationUI locationUI;
     private Player player;
     private ConfirmTravelUI confirmTravelUI;
+
     private MarketUI marketUI;
 
     public GameController() {
@@ -36,9 +37,8 @@ public class GameController {
         getConfigurationDisplayScreen().setVisible(false);
         getLocationUI().setVisible(false);
         getTravelUI().setVisible(true);
-        if (player.hasTraveled()) {
-            confirmTravelUI.setVisible(false);
-        }
+        confirmTravelUI.setVisible(false);
+        //marketUI.setVisible(false);
     }
 
     public void showLocationUI(MapRegion aPlanet) {
@@ -46,20 +46,22 @@ public class GameController {
         setLocationUI(new LocationUI(this, aPlanet));
         getTravelUI().setVisible(false);
         getLocationUI().setVisible(true);
-        if (!player.isJustStarted()) {
-            confirmTravelUI.setVisible(false);
-        }
+        confirmTravelUI.setVisible(false);
+        marketUI.setVisible(false);
     }
 
     //overloads method to use player's planet rather than passing a planet from button listener
     public void showLocationUI() {
         configurationDisplayScreen.setVisible(false);
-        setLocationUI(new LocationUI(this, player.getCurrentLocation()));
+        //setLocationUI(new LocationUI(this, player.getCurrentLocation()));
         travelUI.setVisible(false);
         locationUI.setVisible(true);
         confirmTravelUI.setVisible(false);
+        marketUI.setVisible(false);
     }
 
+    //only use this one if you need to create a NEW travelUI (i.e. this will make
+    //lots of separate travelUI screens otherwise)
     public void showConfirmTravelUI(MapRegion desiredPlanet) {
         confirmTravelUI = new ConfirmTravelUI("Confirm Travel", this, desiredPlanet);
         confirmTravelUI.setVisible(true);
@@ -131,5 +133,13 @@ public class GameController {
 
     public void setConfirmTravelUI(ConfirmTravelUI confirmTravelUI) {
         this.confirmTravelUI = confirmTravelUI;
+    }
+
+    public MarketUI getMarketUI() {
+        return marketUI;
+    }
+
+    public void setMarketUI(MarketUI marketUI) {
+        this.marketUI = marketUI;
     }
 }

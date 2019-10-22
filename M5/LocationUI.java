@@ -11,15 +11,16 @@ class LocationUI {
     private JLabel name, coor, techLevelLabel, welcomeLabel;
 
     public LocationUI(GameController gameController, MapRegion location) {
-        this.location = location;
+        //this.location = location;
         this.gameController = gameController;
-        congifure();
+        congifure(location);
     }
     public void setVisible(boolean b) {
         locationFrame.setVisible(b);
     }
 
-    public void congifure() {
+    public void congifure(MapRegion location) {
+        this.location = location;
         locationFrame = new JFrame(location.getRegionName());
         locationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         locationFrame.setSize(400, 400);

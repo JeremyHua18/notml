@@ -58,6 +58,9 @@ public class ConfigurationDisplayScreen {
             public void actionPerformed(ActionEvent e) {
                 MapRegion startingLocation = gameController.getTravelUI().getUniverse().getMapRegionArray().get(firstInt);
                 gameController.getPlayer().setCurrentLocation(startingLocation);
+                gameController.setConfirmTravelUI(new ConfirmTravelUI("default", gameController,
+                        startingLocation));
+                gameController.setMarketUI(new MarketUI(gameController, startingLocation));
                 gameController.showLocationUI(startingLocation);
             }
         });

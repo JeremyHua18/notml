@@ -13,10 +13,11 @@ public class MarketUI {
     private MapRegion planet;
     private Market market;
     private List<MapRegion> solarSystem;
-    private JPanel marketPanel, buyPanel, sellPanel, statusPanel;
+    private JPanel mainPanel, buyPanel, sellPanel, statusPanel;
     private JLabel buyPrice, buyQuantity, buyBalance, buyAfterBalance;
     private JLabel sellPrice, sellQuantity, sellBalance, sellAfterBalance;
     private JLabel cargo, error;
+    private GridBagConstraints constraints = new GridBagConstraints();
 
 
 
@@ -57,7 +58,9 @@ public class MarketUI {
     public MarketUI(GameController gameController, MapRegion planet) {
         this.planet = planet;
         //this.market = new Market(planet);
+        this.market = planet.getMarket();
         this.gameController = gameController;
+        this.player = gameController.getPlayer();
         //planet.setMarket();
         //market = planet.getMarket();
         configure();
@@ -79,57 +82,90 @@ public class MarketUI {
         for (int j = 0; j < 10; j++) {
             tfNumSell[j] = new JTextField("0",4);
         }
-
         marketFrame = new JFrame(planet.getRegionName()+ "'s Market");
-        marketFrame.setSize(900, 900);
-        marketFrame.setLocationRelativeTo(null);
-        marketFrame.add(sellPanel, BorderLayout.EAST);
-        marketFrame.add(buyPanel, BorderLayout.WEST);
-        marketFrame.add(exitMarketButton, BorderLayout.SOUTH);
-        marketFrame.add(statusPanel, BorderLayout.NORTH);
+        this.mainPanel = new JPanel(new GridBagLayout());
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+
+        this.addAtXYWidth(new JLabel("Credits: " + player.getCredit()), 0, 0, 2);
+
+        this.addAtXYWidth(new JLabel("Cargo space: "
+                + player.getCurrentShip().getCargoSpaceRemaining()), 0, 1, 2);
+
+        constraints.weightx = 0.5;
+
+        sellPanel = new JPanel(new GridLayout(0, 4));
+        buyPanel = new JPanel(new GridLayout(0, 4));
+        exitMarketButton = new JButton("Exit market");
+        confirmBuyButton = new JButton("Confirm buy");
+        confirmSellButton = new JButton("Confirm sell");
+
+        this.addAtXYWidth(new JLabel("SELL"), 0, 2, 1);
+        this.addAtXYWidth(new JLabel("BUY"), 1, 2, 1);
 
 
-        statusPanel = new JPanel();
-        statusPanel.add(creditsAvailable, BorderLayout.WEST);
-        statusPanel.add(spaceAvailable, BorderLayout.EAST);
 
+        sellPanel.add(new JLabel("Item"));
+        sellPanel.add(new JLabel("Value"));
+        sellPanel.add(new JLabel("# in cargo"));
+        sellPanel.add(new JLabel("# to sell"));
+        buyPanel.add(new JLabel("Item"));
+        buyPanel.add(new JLabel("Price"));
+        buyPanel.add(new JLabel("# available"));
+        buyPanel.add(new JLabel("# to buy"));
         int count = 0;
-        buyPanel = new JPanel();
         for (Item item : planet.getAvailableItems().keySet()) {
             int count1 = count;
+            if (market == null) {
+                System.out.println("market is null");
+            }
+            if (item == null) {
+                System.out.println("item is null");
+            }
             if (market.isBuyable(item)) {
+                System.out.println(item.getName());
                 itemNameLabel = new JLabel(item.getName());
-                itemNameLabel.setBounds(20, 20 + count1 * 30, 100,30);
+                //itemNameLabel.setBounds(20, 20 + count1 * 30, 100,30);
                 itemPriceLabel = new JLabel(String.valueOf(market.getBuyPrice(item)));
-                itemPriceLabel.setBounds(40, 20 + count1 * 30, 100, 30);
+                //itemPriceLabel.setBounds(40, 20 + count1 * 30, 100, 30);
                 buyPanel.add(itemNameLabel);
                 buyPanel.add(itemPriceLabel);
+                buyPanel.add(new JLabel("" + market.getQuantity(item)));
                 buyPanel.add(tfNumBuy[item.getKey()]);
-                tfNumBuy[item.getKey()].setBounds(60, 20 + count1 * 30, 100,30);
+                //tfNumBuy[item.getKey()].setBounds(60, 20 + count1 * 30, 100,30);
                 priceBuyPerUnit[item.getKey()] = market.getBuyPrice(item);
             }
             count++;
-            armTextFields();
+            //need to move this outside of loop
+            //armTextFields();
         }
 
         count = 0;
-        sellPanel = new JPanel();
         for (Item item : planet.getAvailableItems().keySet()) {
             int count1 = count;
             if (market.isSellable(item)) {
+                System.out.println(item.getName());
                 itemNameLabel = new JLabel(item.getName());
-                itemNameLabel.setBounds(420, 20 + count1 * 30, 100,30);
+                //itemNameLabel.setBounds(420, 20 + count1 * 30, 100,30);
                 itemPriceLabel = new JLabel(String.valueOf(market.getSellPrice(item)));
-                itemPriceLabel.setBounds(440, 20 + count1 * 30, 100, 30);
+                //itemPriceLabel.setBounds(440, 20 + count1 * 30, 100, 30);
                 sellPanel.add(itemNameLabel);
                 sellPanel.add(itemPriceLabel);
+                sellPanel.add(new JLabel("" + player.getShip().countItemInCargo(item)));
                 sellPanel.add(tfNumSell[item.getKey()]);
-                tfNumSell[item.getKey()].setBounds(460, 20 + count1 * 30, 100,30);
+                //tfNumSell[item.getKey()].setBounds(460, 20 + count1 * 30, 100,30);
                 priceSellPerUnit[item.getKey()] = market.getSellPrice(item);
+                System.out.println(market.getSellPrice(item));
+                System.out.println(market.getBuyPrice(item));
+
             }
             count++;
-            armTextFields();
+            //need to move this outside of loops
+            //armTextFields();
+
         }
+
+        this.addAtXYWidth(sellPanel, 0, 3, 1);
+        this.addAtXYWidth(buyPanel, 1, 3, 1);
 
         confirmBuyButton.addActionListener(new ActionListener() {
             @Override
@@ -162,7 +198,7 @@ public class MarketUI {
                     int sellAmount = parseInt(tfNumSell[item.getKey()]);
                     //the number of this item in the inventory(cargo) enough to sell
                     if (cargo.get(item.getKey()) < sellAmount) {
-                        JOptionPane.showMessageDialog(null, "You don't have enough items!",
+                        JOptionPane.showMessageDialog(marketFrame, "You don't have enough items!",
                                 "Message", JOptionPane.ERROR_MESSAGE);
                     } else {
                         market.sell(item, sellAmount);
@@ -179,11 +215,22 @@ public class MarketUI {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 gameController.getPlayer().setJustStarted(false);
-                gameController.showLocationUI(planet);
+                gameController.showLocationUI();
             }
         });
+        this.addAtXYWidth(confirmSellButton, 0, 4, 1);
+        this.addAtXYWidth(confirmBuyButton, 1, 4, 1);
+        this.addAtXYWidth(exitMarketButton, 0, 5, 2);
 
+        marketFrame.add(mainPanel);
 
+        marketFrame.setVisible(true);
+
+        marketFrame.setDefaultCloseOperation(marketFrame.EXIT_ON_CLOSE);
+
+        marketFrame.setLocationRelativeTo(null);
+
+        marketFrame.setSize(400, 400);
     }
 
     /**
@@ -194,11 +241,11 @@ public class MarketUI {
             totalPriceBuy[i] = parseInt(tfNumBuy[i]) * priceBuyPerUnit[i];
             spaceNeeded = spaceNeeded + parseInt(tfNumBuy[i]);
         }
-        for( int num : totalPriceBuy) {
+        for(int num : totalPriceBuy) {
             totalBill = totalBill + num;
         }
-        potentialTotalBill.setText("Your Total Bill Today will be " + totalBill +
-                "required " + spaceNeeded + " space");
+        potentialTotalBill.setText("Your purchase will be " + totalBill +
+                " credits, requiring " + spaceNeeded + " space");
     }
 
     public void updateTotalGain() {
@@ -281,6 +328,19 @@ public class MarketUI {
             tf.setText("0");
         }
         creditsAvailable.setText(String.valueOf(player.getCredit()));
+    }
+
+    private void addAtXYWidth(JComponent label, int x, int y, int width) {
+        constraints.gridx = x;
+        constraints.gridy = y;
+        constraints.gridwidth = width;
+        label.setBorder(BorderFactory.createLineBorder(Color.black));
+        if (label instanceof JLabel) {
+            JLabel temp = (JLabel) label;
+            temp.setHorizontalAlignment(JLabel.CENTER);
+
+        }
+        mainPanel.add(label, constraints);
     }
 }
 

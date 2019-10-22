@@ -9,18 +9,20 @@ public class Map {
     private ArrayList<MapRegion> mapRegionArray;
     private ArrayList<Integer> xCoorArray;
     private ArrayList<Integer> yCoorArray;
+    private GameController gc;
 
-    public Map() {
-        MapRegion sunRegion = new MapRegion("Sun");
-        MapRegion mercuryRegion = new MapRegion("Mercury");
-        MapRegion venusRegion = new MapRegion("Venus");
-        MapRegion earthRegion = new MapRegion("Earth");
-        MapRegion marsRegion = new MapRegion("Mars");
-        MapRegion jupiterRegion = new MapRegion("Jupiter");
-        MapRegion saturnRegion = new MapRegion("Saturn");
-        MapRegion uranusRegion = new MapRegion("Uranus");
-        MapRegion neptuneRegion = new MapRegion("Neptune");
-        MapRegion plutoRegion = new MapRegion("Pluto");
+    public Map(GameController gc) {
+        this.gc = gc;
+        MapRegion sunRegion = new MapRegion("Sun", gc);
+        MapRegion mercuryRegion = new MapRegion("Mercury", gc);
+        MapRegion venusRegion = new MapRegion("Venus", gc);
+        MapRegion earthRegion = new MapRegion("Earth", gc);
+        MapRegion marsRegion = new MapRegion("Mars", gc);
+        MapRegion jupiterRegion = new MapRegion("Jupiter", gc);
+        MapRegion saturnRegion = new MapRegion("Saturn", gc);
+        MapRegion uranusRegion = new MapRegion("Uranus", gc);
+        MapRegion neptuneRegion = new MapRegion("Neptune", gc);
+        MapRegion plutoRegion = new MapRegion("Pluto", gc);
         mapRegionArray = new ArrayList<>();
         mapRegionArray.add(sunRegion);
         mapRegionArray.add(mercuryRegion);

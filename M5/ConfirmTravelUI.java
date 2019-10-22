@@ -102,6 +102,7 @@ public class ConfirmTravelUI extends JFrame {
                 gc.getPlayer().getCurrentShip().burnFuel(fuelCost);
                 gc.getPlayer().setHasTraveled(true);
                 gc.getPlayer().setCurrentLocation(desiredPlanet);
+                gc.getLocationUI().congifure(desiredPlanet);
                 gc.showLocationUI();
             }
         });

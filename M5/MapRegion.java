@@ -10,18 +10,20 @@ public class MapRegion {
     private String regionName;
     private HashMap<Item, Integer> availableItems;
     private  Market market;
+    private GameController gc;
 
     final int AMOUNT[] = {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
 
-    public MapRegion(String regionName) {
+    public MapRegion(String regionName, GameController gc) {
         setRandomTechLevel();
+        this.gc = gc;
         this.regionName = regionName;
         this.setRandomTechLevel();
         availableItems = new HashMap<>();
-        for (int i = 0; i <AMOUNT.length; i++) {
+        for (int i = 0; i < AMOUNT.length; i++) {
             availableItems.put(Item.values()[i], AMOUNT[i]);
         }
-        market = new Market(this);
+        market = new Market(this, gc);
     }
 
     public int getxCoordinate() {
@@ -90,5 +92,14 @@ public class MapRegion {
 
     public void setMarket(Market newMarket) {
         market = newMarket;
+    }
+
+    @Override
+    public String toString() {
+        return regionName +
+                " at (" + xCoordinate +
+                ", " + yCoordinate +
+                ") with a tech level of " + techLevel +
+                ".";
     }
 }
