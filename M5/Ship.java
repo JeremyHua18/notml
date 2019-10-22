@@ -61,6 +61,7 @@ public class Ship {
     public void addCargo(Item item, int quantity) {
         int curr = this.cargoList.get(item.getValue());
         cargoList.set(item.getValue(), curr + quantity);
+        cargoSpaceRemaining -= quantity;
     }
 
     public void removeCargo(Item item, int quantity) {
