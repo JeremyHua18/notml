@@ -164,6 +164,7 @@ public class MarketUI {
                 //switch all item.getKey() to count?
                 for (Item item: planet.getAvailableItems().keySet()) {
                     int sellAmount = parseInt(tfNumSell[count]);
+                    System.out.println(sellAmount);
                     //the number of this item in the inventory(cargo) enough to sell
                     //keep this as .getKey() because the ship inventory doesn't
                     //necessarily line up with market sellTFs
@@ -179,9 +180,8 @@ public class MarketUI {
                         player.setCredit(totalGain + player.getCredit());
                         formatBuy();
                         formatSale();
-//                        resetSellList();
-//                        clearSellWindow();
                     }
+                    count++;
                 }
             }
         });
