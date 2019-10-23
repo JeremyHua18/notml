@@ -60,11 +60,11 @@ public class Ship {
 
     @Override
     public String toString() {
-        return "Ship{" +
-                "shipName='" + shipName + '\'' +
-                ", cargoSpaceRemaining=" + cargoSpaceRemaining +
-                ", fuelCapacityRemaining=" + fuelCapacityRemaining +
-                ", healthRemaining=" + healthRemaining +
+        return "Ship {" +
+                "Name ='" + shipName + '\'' +
+                ", Cargo Space Remaining=" + cargoSpaceRemaining +
+                ", Fuel Capacity Remaining=" + fuelCapacityRemaining +
+                ", Health Remaining=" + healthRemaining +
                 '}';
     }
 

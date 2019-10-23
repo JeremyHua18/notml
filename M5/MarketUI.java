@@ -114,11 +114,11 @@ public class MarketUI {
         sellPanel = new JPanel(new GridLayout(0, 4));
         buyPanel = new JPanel(new GridLayout(0, 4));
         exitMarketButton = new JButton("Exit market");
-        confirmBuyButton = new JButton("Confirm buy");
-        confirmSellButton = new JButton("Confirm sell");
+        confirmBuyButton = new JButton("<html><font color='red'>Confirm Buy</font></html>");
+        confirmSellButton = new JButton("<html><font color='blue'>Confirm Sell</font></html>");
 
-        this.addAtXYWidth(new JLabel("SELL"), 0, 2, 1);
-        this.addAtXYWidth(new JLabel("BUY"), 1, 2, 1);
+        this.addAtXYWidth(new JLabel("<html><font color='blue'>SELL</font></html>"), 0, 2, 1);
+        this.addAtXYWidth(new JLabel("<html><font color='red'>BUY</font></html>"), 1, 2, 1);
 
         //BUY panel
         formatBuy();
