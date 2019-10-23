@@ -13,9 +13,18 @@ public class MarketUI {
     private MapRegion planet;
     private Market market;
     private List<MapRegion> solarSystem;
-    private JPanel mainPanel, buyPanel, sellPanel, statusPanel;
-    private JLabel buyPrice, buyQuantity, buyBalance, buyAfterBalance;
-    private JLabel sellPrice, sellQuantity, sellBalance, sellAfterBalance;
+    private JPanel mainPanel;
+    private JPanel buyPanel;
+    private JPanel sellPanel;
+    private JPanel statusPanel;
+    private JLabel buyPrice;
+    private JLabel buyQuantity;
+    private JLabel buyBalance;
+    private JLabel buyAfterBalance;
+    private JLabel sellPrice;
+    private JLabel sellQuantity;
+    private JLabel sellBalance;
+    private JLabel sellAfterBalance;
     private JLabel cargo, error;
     private GridBagConstraints constraints = new GridBagConstraints();
 
@@ -25,6 +34,7 @@ public class MarketUI {
     private JLabel creditsAvailable, spaceAvailable;
     private JButton confirmSellButton, confirmBuyButton, exitMarketButton;
     private JLabel potentialTotalGain, potentialTotalBill, potentialSpaceNeeded;
+    private JLabel shipInfo;
 
     private JLabel itemNameLabel, itemPriceLabel;
     //private JTextField tfItemAmount;
@@ -90,6 +100,10 @@ public class MarketUI {
                 + player.getCurrentShip().getCargoSpaceRemaining());
         this.addAtXYWidth(spaceAvailable, 0, 1, 2);
 
+        //create ship label and add
+        shipInfo = new JLabel(player.getShip().toString());
+        this.addAtXYWidth(shipInfo, 0, 5, 2);
+
         //create bill and saleTotal labels
         potentialTotalBill = new JLabel("Your purchase will be 0 credits.");
         potentialTotalGain = new JLabel("Your sale will be 0 credits.");
@@ -131,7 +145,7 @@ public class MarketUI {
                 } else {
                     int count = 0;
                     for (Item item: planet.getAvailableItems().keySet()) {
-                        BuyItemCommand cmd = new BuyItemCommand(player, market, item, parseInt(tfNumBuy[count]));
+                        new BuyItemCommand(player, market, item, parseInt(tfNumBuy[count]));
                         count++;
                     }
                     formatSale();
@@ -146,15 +160,21 @@ public class MarketUI {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 List<Integer> cargo = player.getShip().getCargo();
+                int count = 0;
+                //switch all item.getKey() to count?
                 for (Item item: planet.getAvailableItems().keySet()) {
-                    int sellAmount = parseInt(tfNumSell[item.getKey()]);
+                    int sellAmount = parseInt(tfNumSell[count]);
                     //the number of this item in the inventory(cargo) enough to sell
+                    //keep this as .getKey() because the ship inventory doesn't
+                    //necessarily line up with market sellTFs
                     if (sellAmount != 0 && cargo.get(item.getKey()) < sellAmount) {
                         JOptionPane.showMessageDialog(marketFrame, "You don't have enough "
                                         + item.getName() + "!",
                                 "Not Enough To Sell", JOptionPane.ERROR_MESSAGE);
                     } else if (sellAmount != 0) {
                         market.sell(item, sellAmount);
+                        //keep .getKey() here because ship inventory doesn't necessarily
+                        //line up with the sellTFs
                         player.getShip().removeCargo(Item.values()[item.getKey()], sellAmount);
                         player.setCredit(totalGain + player.getCredit());
                         formatBuy();
@@ -175,7 +195,7 @@ public class MarketUI {
         });
         this.addAtXYWidth(confirmSellButton, 0, 4, 1);
         this.addAtXYWidth(confirmBuyButton, 1, 4, 1);
-        this.addAtXYWidth(exitMarketButton, 0, 5, 2);
+        this.addAtXYWidth(exitMarketButton, 0, 6, 2);
 
         marketFrame.add(mainPanel);
 
@@ -190,6 +210,7 @@ public class MarketUI {
 
     public void formatBuy() {
         updateCargoCredits();
+        updateShipLabel();
         int count = 0;
         buyPanel.removeAll();
         //establish headers
@@ -228,6 +249,7 @@ public class MarketUI {
 
     private void formatSale() {
         updateCargoCredits();
+        updateShipLabel();
         int count = 0;
         sellPanel.removeAll();
         //establish headers
@@ -317,6 +339,10 @@ public class MarketUI {
                 }
             });
         }
+    }
+
+    public void updateShipLabel() {
+        shipInfo.setText(player.getShip().toString());
     }
 
     public static int parseInt(JTextField tf) {

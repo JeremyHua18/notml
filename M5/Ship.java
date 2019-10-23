@@ -58,6 +58,16 @@ public class Ship {
         this.healthRemaining = shipType.getHealth();
     }
 
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "shipName='" + shipName + '\'' +
+                ", cargoSpaceRemaining=" + cargoSpaceRemaining +
+                ", fuelCapacityRemaining=" + fuelCapacityRemaining +
+                ", healthRemaining=" + healthRemaining +
+                '}';
+    }
+
     public void addCargo(Item item, int quantity) {
         int curr = this.cargoList.get(item.getValue());
         cargoList.set(item.getValue(), curr + quantity);
