@@ -70,7 +70,7 @@ public class GameController {
     public void showMarketUI(MapRegion mapRegion) {
         marketUI = new MarketUI(this, mapRegion);
         marketUI.setVisible(true);
-
+        locationUI.setVisible(false);
     }
 
     public Player getPlayer() {
