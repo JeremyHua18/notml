@@ -11,7 +11,6 @@ public class ConfirmTravelUI extends JFrame {
     private JButton confirmTravel;
     private JButton returnToTravelUI;
     private GridBagConstraints constraints = new GridBagConstraints();
-    private double banditPossibility, policePossibility, traderPossibility;
     private GameController gc;
 
     /*
@@ -38,19 +37,6 @@ public class ConfirmTravelUI extends JFrame {
         setLayout(new GridBagLayout());
         configure(desiredPlanet);
     }
-
-    public void setBanditPossibility(double banditPossibility) {
-        this.banditPossibility = banditPossibility;
-    }
-    public void setPolicePossibility(double policePossibility) {
-        this.policyPossibility = policyPossibility;
-    }
-
-    public void setTraderPossibility(double traderPossibility) {
-        this.traderPossibility = traderPossibility;
-    }
-
-
 
     private void configure(MapRegion desiredPlanet) {
         int fuelCost = gc.getPlayer().calcTravelCosts(desiredPlanet);
@@ -113,20 +99,21 @@ public class ConfirmTravelUI extends JFrame {
         confirmTravel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                gc.getPlayer().getCurrentShip().burnFuel(fuelCost);
-                gc.getPlayer().setHasTraveled(true);
-                gc.getPlayer().setCurrentLocation(desiredPlanet);
-                gc.getLocationUI().congifure(desiredPlanet);
                 double banditDice = Math.random();
                 double policeDice = Math.random();
                 double traderDice = Math.random();
-                if (banditDice < banditPossibility) {
+                if (banditDice < gc.getPlayer().getBanditPossibility()) {
+                    gc.getBanditUI().setDestination(desiredPlanet);
+                    gc.getBanditUI().setPreviousRegion(gc.getPlayer().getCurrentLocation());
                     gc.showBanditUI();
-                } else if (policeDice < policyPossibility) {
+                } else if (policeDice < gc.getPlayer().getPolicePossibility()) {
                     gc.showPoliceUI();
-                } else if (traderDice < traderPossibility) {
+                } else if (traderDice < gc.getPlayer().getTraderPossibility()) {
                     gc.showTravelUI();
                 } else {
+                    gc.getPlayer().getCurrentShip().burnFuel(fuelCost);
+                    gc.getPlayer().setHasTraveled(true);
+                    gc.getPlayer().setCurrentLocation(desiredPlanet);
                     gc.showLocationUI();
                 }
             }

@@ -11,7 +11,6 @@ class LocationUI {
     private JLabel name, coor, techLevelLabel, welcomeLabel;
 
     public LocationUI(GameController gameController, MapRegion location) {
-        //this.location = location;
         this.gameController = gameController;
         congifure(location);
     }

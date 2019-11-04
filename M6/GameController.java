@@ -18,6 +18,7 @@ public class GameController {
         setConfigurationScreen(new ConfigurationScreen(this));
         setConfigurationDisplayScreen(new ConfigurationDisplayScreen(this));
         setTravelUI(new TravelUI(this));
+        setBanditUI(new BanditUI(this));
         setConfirmTravelUI(null);
         player = null;
     }
@@ -41,22 +42,23 @@ public class GameController {
         getLocationUI().setVisible(false);
         getTravelUI().setVisible(true);
         confirmTravelUI.setVisible(false);
-        //marketUI.setVisible(false);
     }
 
     public void showLocationUI(MapRegion aPlanet) {
         getConfigurationDisplayScreen().setVisible(false);
         setLocationUI(new LocationUI(this, aPlanet));
         getTravelUI().setVisible(false);
-        getLocationUI().setVisible(true);
         confirmTravelUI.setVisible(false);
         marketUI.setVisible(false);
+        if (banditUI != null) {
+            banditUI.setVisible(false);
+        }
+        getLocationUI().setVisible(true);
     }
 
     //overloads method to use player's planet rather than passing a planet from button listener
     public void showLocationUI() {
         configurationDisplayScreen.setVisible(false);
-        //setLocationUI(new LocationUI(this, player.getCurrentLocation()));
         travelUI.setVisible(false);
         locationUI.setVisible(true);
         confirmTravelUI.setVisible(false);
@@ -77,7 +79,12 @@ public class GameController {
     }
 
     public void showBanditUI() {
-        banditUI = new BanditUI();
+        getConfigurationDisplayScreen().setVisible(false);
+        travelUI.setVisible(false);
+        confirmTravelUI.setVisible(false);
+        banditUI = new BanditUI(this);
+        banditUI.setVisible(true);
+
     }
 
     public void showPoliceUI() {
@@ -151,6 +158,9 @@ public class GameController {
         this.confirmTravelUI = confirmTravelUI;
     }
 
+    public void setConfirmationUI(ConfirmTravelUI newConfirmationUI) {
+        this.confirmTravelUI = newConfirmationUI;
+    }
     public MarketUI getMarketUI() {
         return marketUI;
     }
@@ -161,6 +171,9 @@ public class GameController {
 
     public BanditUI getBanditUI() {
         return this.banditUI;
+    }
+    public void setBanditUI(BanditUI aBanditUI) {
+        this.banditUI = aBanditUI;
     }
 
     public PoliceUI getPoliceUI() {

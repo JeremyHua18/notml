@@ -108,6 +108,14 @@ public class Ship {
         this.cargoList = cargo;
     }
 
+    public int getHealthRemaining() {
+        return healthRemaining;
+    }
+
+    public void setHealthRemaining(int newHealthRemaining) {
+        healthRemaining = newHealthRemaining;
+    }
+
     public int getCurrentCargo() {
         int sum = 0;
         for (int i : cargoList) {

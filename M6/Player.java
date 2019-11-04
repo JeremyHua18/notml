@@ -18,12 +18,35 @@ public class Player {
     private boolean hasTraveled;
     private Ship currentShip;
 
+    private double banditPossibility, policePossibility, traderPossibility;
+
     public Ship getCurrentShip() {
         return currentShip;
     }
 
     public void setCurrentShip(Ship currentShip) {
         this.currentShip = currentShip;
+    }
+
+
+    public void setBanditPossibility(double banditPossibility) {
+        this.banditPossibility = banditPossibility;
+    }
+    public void setPolicyPossibility(double policePossibility) {
+        this.policePossibility = policePossibility;
+    }
+    public void setTraderPossibility(double traderPossibility) {
+        this.traderPossibility = traderPossibility;
+    }
+
+    public double getBanditPossibility() {
+        return banditPossibility;
+    }
+    public double getPolicePossibility() {
+        return policePossibility;
+    }
+    public double getTraderPossibility() {
+        return traderPossibility;
     }
 
 

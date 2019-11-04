@@ -164,22 +164,24 @@ public class ConfigurationScreen extends JFrame {
                         + "<br>Merchant Skill Points: " + merchant
                         + "<br>Engineer Skill Points: " + engineer + "</html>");
                 displayCredit.setText("credits: " + credits);
-                // set the possibility of encountering a bandit, policy, or a trader
-                if (diffStr.equals("Hard")) {
-                    gameController.getConfirmTravelUI().setBanditPossibility(0.75);
-                    gameController.getConfirmTravelUI().setPolicyPossibility(0.75);
-                    gameController.getConfirmTravelUI().setTraderPossibility(0.25);
-                } else if (diffStr.equals("Medium")) {
-                    gameController.getConfirmTravelUI().setBanditPossibility(0.5);
-                    gameController.getConfirmTravelUI().setPolicyPossibility(0.5);
-                    gameController.getConfirmTravelUI().setTraderPossibility(0.5);
-                } else {
-                    gameController.getConfirmTravelUI().setBanditPossibility(0.25);
-                    gameController.getConfirmTravelUI().setPolicyPossibility(0.25);
-                    gameController.getConfirmTravelUI().setTraderPossibility(0.75);
-                }
                 gameController.setPlayer(new Player(fighter, engineer, pilot, merchant, credits));
                 gameController.getPlayer().setCurrentShip(new Ship("WOOD"));
+                // set the possibility of encountering a bandit, police, or a trader
+                if (diffStr.equals("Hard")) {
+                    gameController.getPlayer().setBanditPossibility(0.75);
+                    gameController.getPlayer().setPolicyPossibility(0.75);
+                    gameController.getPlayer().setTraderPossibility(0.25);
+                } else if (diffStr.equals("Medium")) {
+                    gameController.getPlayer().setBanditPossibility(0.5);
+                    gameController.getPlayer().setPolicyPossibility(0.5);
+                    gameController.getPlayer().setTraderPossibility(0.5);
+                } else {
+                    gameController.getPlayer().setBanditPossibility(0.25);
+                    gameController.getPlayer().setPolicyPossibility(0.25);
+                    gameController.getPlayer().setTraderPossibility(0.75);
+                }
+
+
                 gameController.getConfigurationDisplayScreen().setInformation(displayName,
                         displaySkill,
                         displayCredit, new JLabel("Difficulty: " + diffStr));
