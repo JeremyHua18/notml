@@ -11,7 +11,7 @@ public class ConfirmTravelUI extends JFrame {
     private JButton confirmTravel;
     private JButton returnToTravelUI;
     private GridBagConstraints constraints = new GridBagConstraints();
-    private double banditPossibility, policyPossibility, traderPossibility;
+    private double banditPossibility, policePossibility, traderPossibility;
     private GameController gc;
 
     /*
@@ -42,7 +42,7 @@ public class ConfirmTravelUI extends JFrame {
     public void setBanditPossibility(double banditPossibility) {
         this.banditPossibility = banditPossibility;
     }
-    public void setPolicyPossibility(double policyPossibility) {
+    public void setPolicePossibility(double policePossibility) {
         this.policyPossibility = policyPossibility;
     }
 
