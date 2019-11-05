@@ -309,7 +309,7 @@ public class MarketUI {
         for( int num : totalPriceSell) {
             totalGain = totalGain + num;
         }
-        potentialTotalGain.setText("Total " + totalGain + " credits.");
+        potentialTotalGain.setText("Your total sale will be " + totalGain + " credits.");
     }
 
     public void armTextFields() {

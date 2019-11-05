@@ -24,6 +24,10 @@ public class TravelUI {
     }
 
     public void configure() {
+//        starBG = new ImageIcon(getClass().getResource("starBG.gif"));
+//        starBGdisp = new JLabel(starBG);
+//        starBGdisp.setSize(starBG.getIconWidth(), starBG.getIconHeight());
+//        starBGdisp.setBounds(0, 350, 500, 567);
 
         universeFrame = new JFrame("The map of the Universe");
         universeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,8 +71,7 @@ public class TravelUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     gameController.showConfirmTravelUI(universe.getMapRegionArray().get(count1));
-                    //gameController.setConfirmTravelUI(new ConfirmTravelUI("default", gameController, universe.getMapRegionArray().get(count1)));
-                   // gameController.showConfirmTravelUI();
+                    //gameController.showLocationUI(universe.getMapRegionArray().get(count1));
                 }
             });
             count++;

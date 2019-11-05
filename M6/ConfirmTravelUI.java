@@ -99,23 +99,12 @@ public class ConfirmTravelUI extends JFrame {
         confirmTravel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                double banditDice = Math.random();
-                double policeDice = Math.random();
-                double traderDice = Math.random();
-                if (banditDice < gc.getPlayer().getBanditPossibility()) {
-                    gc.getBanditUI().setDestination(desiredPlanet);
-                    gc.getBanditUI().setPreviousRegion(gc.getPlayer().getCurrentLocation());
-                    gc.showBanditUI();
-                } else if (policeDice < gc.getPlayer().getPolicePossibility()) {
-                    gc.showPoliceUI();
-                } else if (traderDice < gc.getPlayer().getTraderPossibility()) {
-                    gc.showTravelUI();
-                } else {
-                    gc.getPlayer().getCurrentShip().burnFuel(fuelCost);
-                    gc.getPlayer().setHasTraveled(true);
-                    gc.getPlayer().setCurrentLocation(desiredPlanet);
-                    gc.showLocationUI();
-                }
+                gc.getPlayer().getCurrentShip().burnFuel(fuelCost);
+                gc.getPlayer().setHasTraveled(true);
+                Encounter encounter = new Encounter(gc, gc.getPlayer().getCurrentLocation(), desiredPlanet);
+                //gc.getPlayer().setCurrentLocation(desiredPlanet);
+                //gc.getLocationUI().configure(desiredPlanet);
+                //gc.showLocationUI();
             }
         });
 

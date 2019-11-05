@@ -17,7 +17,6 @@ public class Player {
     private MapRegion currentLocation;
     private boolean hasTraveled;
     private Ship currentShip;
-
     private double banditPossibility, policePossibility, traderPossibility;
 
     public Ship getCurrentShip() {
@@ -27,28 +26,27 @@ public class Player {
     public void setCurrentShip(Ship currentShip) {
         this.currentShip = currentShip;
     }
-
-
-    public void setBanditPossibility(double banditPossibility) {
-        this.banditPossibility = banditPossibility;
-    }
-    public void setPolicyPossibility(double policePossibility) {
-        this.policePossibility = policePossibility;
-    }
-    public void setTraderPossibility(double traderPossibility) {
-        this.traderPossibility = traderPossibility;
-    }
-
     public double getBanditPossibility() {
         return banditPossibility;
     }
+    public void setBanditPossibility(double newBanditPossibility) {
+        banditPossibility = newBanditPossibility;
+    }
+
+
     public double getPolicePossibility() {
         return policePossibility;
+    }
+    public void setPolicePossibility(double newPolicePossibility) {
+        policePossibility = newPolicePossibility;
     }
     public double getTraderPossibility() {
         return traderPossibility;
     }
 
+    public void setTraderPossibility(double newTraderPossibility) {
+        traderPossibility = newTraderPossibility;
+    }
 
     public Player(int fighterSkill, int engineerSkill,
             int merchantSkill, int pilotSkill, int credit) {

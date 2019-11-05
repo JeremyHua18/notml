@@ -14,8 +14,8 @@ public class Ship {
     private List<Integer> cargoList;
 
     protected enum ShipType {
-        WOOD("Wood", 3, 200, 20), PLASTIC("Plastic", 3, 200, 20), FIBERGLASS("Fiberglass", 3, 200, 20), STEEL("Steel", 3, 200, 20),
-        CARBONFIBER("Carbonfiber", 3, 200, 20), DIAMOND("Diamond", 3, 200, 20);
+        WOOD("Wood", 3, 2000, 20), PLASTIC("Plastic", 3, 2000, 20), FIBERGLASS("Fiberglass", 3, 2000, 20), STEEL("Steel", 3, 2000, 20),
+        CARBONFIBER("Carbonfiber", 3, 2000, 20), DIAMOND("Diamond", 3, 2000, 20);
         private String name;
         private int cargo;
         private int fuel;
@@ -88,6 +88,10 @@ public class Ship {
         return this.cargoList;
     }
 
+    public void setCargoList(List<Integer> newList) {
+        cargoList = newList;
+    }
+
     public int getCargoSpace() {
         return this.cargoSpace;
     }
@@ -99,6 +103,15 @@ public class Ship {
     public int getCargoSpaceRemaining() {
         return cargoSpaceRemaining;
     }
+    public void setCargoSpaceRemaining(int newSpace) {
+        cargoSpaceRemaining = newSpace;
+    }
+    public int getHealthRemaining() {
+        return healthRemaining;
+    }
+    public void setHealthRemaining(int newHealth) {
+        healthRemaining = newHealth;
+    }
 
 
     public void burnFuel(int fuelcost) {
@@ -106,14 +119,6 @@ public class Ship {
     }
     public void setCargo(List<Integer> cargo) {
         this.cargoList = cargo;
-    }
-
-    public int getHealthRemaining() {
-        return healthRemaining;
-    }
-
-    public void setHealthRemaining(int newHealthRemaining) {
-        healthRemaining = newHealthRemaining;
     }
 
     public int getCurrentCargo() {

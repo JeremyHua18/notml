@@ -166,22 +166,19 @@ public class ConfigurationScreen extends JFrame {
                 displayCredit.setText("credits: " + credits);
                 gameController.setPlayer(new Player(fighter, engineer, pilot, merchant, credits));
                 gameController.getPlayer().setCurrentShip(new Ship("WOOD"));
-                // set the possibility of encountering a bandit, police, or a trader
-                if (diffStr.equals("Hard")) {
+                if (diffLevel == 1) {
                     gameController.getPlayer().setBanditPossibility(0.75);
-                    gameController.getPlayer().setPolicyPossibility(0.75);
+                    gameController.getPlayer().setPolicePossibility(0.75);
                     gameController.getPlayer().setTraderPossibility(0.25);
-                } else if (diffStr.equals("Medium")) {
+                } else if (diffLevel == 2) {
                     gameController.getPlayer().setBanditPossibility(0.5);
-                    gameController.getPlayer().setPolicyPossibility(0.5);
+                    gameController.getPlayer().setPolicePossibility(0.5);
                     gameController.getPlayer().setTraderPossibility(0.5);
                 } else {
                     gameController.getPlayer().setBanditPossibility(0.25);
-                    gameController.getPlayer().setPolicyPossibility(0.25);
+                    gameController.getPlayer().setPolicePossibility(0.25);
                     gameController.getPlayer().setTraderPossibility(0.75);
                 }
-
-
                 gameController.getConfigurationDisplayScreen().setInformation(displayName,
                         displaySkill,
                         displayCredit, new JLabel("Difficulty: " + diffStr));
