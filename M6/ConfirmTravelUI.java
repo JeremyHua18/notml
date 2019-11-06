@@ -92,7 +92,7 @@ public class ConfirmTravelUI extends JFrame {
         returnToTravelUI = new JButton("no");
         mainPanel.add(returnToTravelUI, constraints);
 
-        if(addWarning) {
+        if (addWarning) {
             confirmTravel.setEnabled(false);
         }
 
@@ -101,7 +101,8 @@ public class ConfirmTravelUI extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 gc.getPlayer().getCurrentShip().burnFuel(fuelCost);
                 gc.getPlayer().setHasTraveled(true);
-                Encounter encounter = new Encounter(gc, gc.getPlayer().getCurrentLocation(), desiredPlanet);
+                Encounter encounter = new Encounter(gc, gc.getPlayer().getCurrentLocation(),
+                        desiredPlanet);
                 //gc.getPlayer().setCurrentLocation(desiredPlanet);
                 //gc.getLocationUI().configure(desiredPlanet);
                 //gc.showLocationUI();

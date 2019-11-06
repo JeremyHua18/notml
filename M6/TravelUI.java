@@ -24,10 +24,6 @@ public class TravelUI {
     }
 
     public void configure() {
-//        starBG = new ImageIcon(getClass().getResource("starBG.gif"));
-//        starBGdisp = new JLabel(starBG);
-//        starBGdisp.setSize(starBG.getIconWidth(), starBG.getIconHeight());
-//        starBGdisp.setBounds(0, 350, 500, 567);
 
         universeFrame = new JFrame("The map of the Universe");
         universeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

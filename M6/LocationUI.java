@@ -1,14 +1,16 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Font;
-
 class LocationUI {
     private JFrame locationFrame;
     private MapRegion location;
-    private JButton goToUniverseButton, goToMarketButton;
+    private JButton goToUniverseButton;
+    private JButton goToMarketButton;
     private GameController gameController;
-    private JLabel name, coor, techLevelLabel, welcomeLabel;
+    private JLabel name;
+    private JLabel coor;
+    private JLabel techLevelLabel;
+    private JLabel welcomeLabel;
 
     public LocationUI(GameController gameController, MapRegion location) {
         //this.location = location;
@@ -26,15 +28,17 @@ class LocationUI {
         locationFrame.setSize(400, 400);
         locationFrame.setLayout(null);
         if (gameController.getPlayer().isJustStarted()) {
-            welcomeLabel = new JLabel("<html>Welcome to the universe,<br/>your journey" +
-                    " begins in the " + location.getRegionName() + " region.</html>");
+            welcomeLabel = new JLabel("<html>Welcome to the universe,<br/>your journey"
+                    + " begins in the " + location.getRegionName() + " region.</html>");
             welcomeLabel.setBounds(75, 50, 400, 60);
             locationFrame.add(welcomeLabel);
         }
-        name = new JLabel("<html>You're currently in the<br/>" + location.getRegionName() + " region.");
+        name = new JLabel("<html>You're currently in the<br/>" + location.getRegionName()
+                + " region.");
         name.setBounds(75, 140, 200, 30);
 
-        coor = new JLabel("Coordinates: (" + location.getxCoordinate() + "," + location.getyCoordinate() + ")");
+        coor = new JLabel("Coordinates: (" + location.getxCoordinate() + ","
+                + location.getyCoordinate() + ")");
         coor.setBounds(75, 163, 200, 30);
 
         techLevelLabel = new JLabel("Tech Level: " + String.valueOf(location.getTechLevel()));

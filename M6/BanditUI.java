@@ -9,11 +9,16 @@ import java.util.Collections;
 import javax.swing.event.*;
 public class BanditUI {
     private GameController gameController;
-    private MapRegion previousRegion, desiredRegion;
-    JFrame banditFrame;
-    JButton payButton, fleeButton, fightButton;
+    private MapRegion previousRegion;
+    private MapRegion desiredRegion;
+    private JFrame banditFrame;
+    private JPanel banditContainer;
+    private JButton payButton;
+    private JButton fleeButton;
+    private JButton fightButton;
 
-    public BanditUI(GameController gameController, MapRegion previousRegion, MapRegion desiredRegion) {
+    public BanditUI(GameController gameController, MapRegion previousRegion,
+                    MapRegion desiredRegion) {
         this.gameController = gameController;
         this.previousRegion = previousRegion;
         this.desiredRegion = desiredRegion;
@@ -27,23 +32,28 @@ public class BanditUI {
         payButton = new JButton("Pay Bandit");
         fleeButton = new JButton("Flee Bandit");
         fightButton = new JButton("Fight Bandit");
-        banditFrame.setSize(400,400);
-        payButton.setBounds(75, 180, 200, 30);
-        fleeButton.setBounds(75, 280, 200, 30);
-        fightButton.setBounds(75,380,200,30);
-        banditFrame.add(payButton);
-        banditFrame.add(fleeButton);
-        banditFrame.add(fightButton);
+        banditContainer = new JPanel(new GridLayout(2, 2));
+        banditFrame.setSize(400, 400);
+        banditContainer.add(payButton);
+        banditContainer.add(fleeButton);
+        banditContainer.add(fightButton);
+        banditFrame.add(banditContainer);
         banditFrame.setVisible(true);
         payButton.addActionListener(e -> {
             if (gameController.getPlayer().getCredit() >= 200) {
                 gameController.getPlayer().setCredit(gameController.getPlayer().getCredit() - 200);
-            } else if (gameController.getPlayer().getShip().getCargoSpace() != gameController.getPlayer().getShip().getCargoSpaceRemaining() ){
-                gameController.getPlayer().getShip().setCargoList(new ArrayList<>(Collections.nCopies(Item.values().length, 0)));
-                gameController.getPlayer().getShip().setCargoSpaceRemaining(gameController.getPlayer().getShip().getCargoSpace());
+            } else if (gameController.getPlayer().getShip().getCargoSpace() != gameController
+                    .getPlayer().getShip().getCargoSpaceRemaining()) {
+                gameController.getPlayer().getShip()
+                        .setCargoList(new ArrayList<>(Collections.nCopies(Item.values()
+                                .length, 0)));
+                gameController.getPlayer().getShip()
+                        .setCargoSpaceRemaining(gameController.getPlayer()
+                                .getShip().getCargoSpace());
             } else {
                 if (gameController.getPlayer().getShip().getHealthRemaining() >= 5) {
-                    gameController.getPlayer().getShip().setHealthRemaining(gameController.getPlayer().getShip().getHealthRemaining() - 5);
+                    gameController.getPlayer().getShip().setHealthRemaining(gameController
+                            .getPlayer().getShip().getHealthRemaining() - 5);
                 } else {
                     gameController.getPlayer().getShip().setHealthRemaining(0);
                 }
@@ -56,7 +66,8 @@ public class BanditUI {
         fleeButton.addActionListener(e -> {
             if (Math.random() * gameController.getPlayer().getPilotSkill() < 7) {
                 gameController.getPlayer().setCredit(0);
-                gameController.getPlayer().getShip().setHealthRemaining(gameController.getPlayer().getShip().getHealthRemaining() - 5);
+                gameController.getPlayer().getShip().setHealthRemaining(gameController.getPlayer()
+                        .getShip().getHealthRemaining() - 5);
             }
             banditFrame.setVisible(false);
             gameController.getPlayer().setCurrentLocation(previousRegion);
@@ -68,7 +79,8 @@ public class BanditUI {
                 gameController.getPlayer().setCredit(gameController.getPlayer().getCredit() + 50);
             } else {
                 gameController.getPlayer().setCredit(0);
-                gameController.getPlayer().getShip().setHealthRemaining(gameController.getPlayer().getShip().getHealthRemaining() - 5);
+                gameController.getPlayer().getShip().setHealthRemaining(gameController.getPlayer()
+                        .getShip().getHealthRemaining() - 5);
             }
             banditFrame.setVisible(false);
             gameController.getPlayer().setCurrentLocation(desiredRegion);

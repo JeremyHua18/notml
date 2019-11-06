@@ -1,7 +1,5 @@
 import java.util.HashMap;
 import java.util.Random;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MapRegion {
     private int xCoordinate;
@@ -12,7 +10,7 @@ public class MapRegion {
     private  Market market;
     private GameController gc;
 
-    final int AMOUNT[] = {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
+    private final int[] amount = {10, 10, 10, 10, 10, 10, 10, 10, 10, 10};
 
     public MapRegion(String regionName, GameController gc) {
         setRandomTechLevel();
@@ -20,8 +18,8 @@ public class MapRegion {
         this.regionName = regionName;
         this.setRandomTechLevel();
         availableItems = new HashMap<>();
-        for (int i = 0; i < AMOUNT.length; i++) {
-            availableItems.put(Item.values()[i], AMOUNT[i]);
+        for (int i = 0; i < amount.length; i++) {
+            availableItems.put(Item.values()[i], amount[i]);
         }
         market = new Market(this, gc);
     }
@@ -75,16 +73,18 @@ public class MapRegion {
 
     private void setRandomTechLevel() {
         TechLevel[] array = {TechLevel.PREAG, TechLevel.AGRICULTURE, TechLevel.MEDIEVAL,
-                TechLevel.RENAISSANCE, TechLevel.INDUSTRIAL, TechLevel.MODERN,
-                TechLevel.FUTURISTIC};
+            TechLevel.RENAISSANCE, TechLevel.INDUSTRIAL, TechLevel.MODERN,
+            TechLevel.FUTURISTIC};
         Random random = new Random();
         int randomNumber = random.nextInt(7);
         this.techLevel = array[randomNumber];
     }
 
-    public HashMap<Item, Integer> getAvailableItems() {return availableItems; }
+    public HashMap<Item, Integer> getAvailableItems() {
+        return availableItems; }
 
-    public void setAvailableItems(HashMap<Item, Integer> availableItems) { this.availableItems = availableItems; }
+    public void setAvailableItems(HashMap<Item, Integer> availableItems) {
+        this.availableItems = availableItems; }
 
     public Market getMarket() {
         return market;
@@ -96,10 +96,10 @@ public class MapRegion {
 
     @Override
     public String toString() {
-        return regionName +
-                " at (" + xCoordinate +
-                ", " + yCoordinate +
-                ") with a tech level of " + techLevel +
-                ".";
+        return regionName
+                + " at (" + xCoordinate
+                + ", " + yCoordinate
+                + ") with a tech level of " + techLevel
+                + ".";
     }
 }

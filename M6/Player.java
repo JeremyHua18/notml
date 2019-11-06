@@ -17,7 +17,9 @@ public class Player {
     private MapRegion currentLocation;
     private boolean hasTraveled;
     private Ship currentShip;
-    private double banditPossibility, policePossibility, traderPossibility;
+    private double banditPossibility;
+    private double policePossibility;
+    private double traderPossibility;
 
     public Ship getCurrentShip() {
         return currentShip;
@@ -69,7 +71,9 @@ public class Player {
         return credit;
     }
 
-    public Ship getShip() {return currentShip;}
+    public Ship getShip() {
+        return currentShip;
+    }
 
     public void setFighterSkill(int fighterSkill) {
         this.fighterSkill = fighterSkill;

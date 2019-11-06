@@ -1,14 +1,18 @@
 public class Encounter {
     private GameController gameController;
-    private MapRegion previousRegion, desiredRegion;
+    private MapRegion previousRegion;
+    private MapRegion desiredRegion;
 
-    public Encounter(GameController gameController, MapRegion previousRegion, MapRegion desiredRegion) {
+    public Encounter(GameController gameController, MapRegion previousRegion,
+                     MapRegion desiredRegion) {
         this.gameController = gameController;
         this.previousRegion = previousRegion;
         this.desiredRegion = desiredRegion;
         if (gameController.getPlayer().getBanditPossibility() > Math.random()) {
-           launchBanditUI();
-        } else if (gameController.getPlayer().getPolicePossibility() > Math.random() && gameController.getPlayer().getShip().getCargoSpaceRemaining() != gameController.getPlayer().getShip().getCargoSpace()) {
+            launchBanditUI();
+        } else if (gameController.getPlayer().getPolicePossibility() > Math.random()
+                && gameController.getPlayer().getShip().getCargoSpaceRemaining()
+                != gameController.getPlayer().getShip().getCargoSpace()) {
             launchPoliceUI();
         } else if (gameController.getPlayer().getTraderPossibility() > Math.random()) {
             launchTraderUI();

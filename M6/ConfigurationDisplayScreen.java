@@ -56,7 +56,8 @@ public class ConfigurationDisplayScreen {
         int firstInt = random.nextInt(10);
         startGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                MapRegion startingLocation = gameController.getTravelUI().getUniverse().getMapRegionArray().get(firstInt);
+                MapRegion startingLocation = gameController.getTravelUI().getUniverse()
+                        .getMapRegionArray().get(firstInt);
                 gameController.getPlayer().setCurrentLocation(startingLocation);
                 gameController.setConfirmTravelUI(new ConfirmTravelUI("default", gameController,
                         startingLocation));

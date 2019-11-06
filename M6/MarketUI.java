@@ -3,7 +3,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MarketUI {
@@ -25,33 +24,44 @@ public class MarketUI {
     private JLabel sellQuantity;
     private JLabel sellBalance;
     private JLabel sellAfterBalance;
-    private JLabel cargo, error;
+    private JLabel cargo;
+    private JLabel error;
     private GridBagConstraints constraints = new GridBagConstraints();
 
 
 
-    private int credits, space, totalBill, totalGain, spaceNeeded;
-    private JLabel creditsAvailable, spaceAvailable;
-    private JButton confirmSellButton, confirmBuyButton, exitMarketButton;
-    private JLabel potentialTotalGain, potentialTotalBill, potentialSpaceNeeded;
+    private int credits;
+    private int space;
+    private int totalBill;
+    private int totalGain;
+    private int spaceNeeded;
+    private JLabel creditsAvailable;
+    private JLabel spaceAvailable;
+    private JButton confirmSellButton;
+    private JButton confirmBuyButton;
+    private JButton exitMarketButton;
+    private JLabel potentialTotalGain;
+    private JLabel potentialTotalBill;
+    private JLabel potentialSpaceNeeded;
     private JLabel shipInfo;
 
-    private JLabel itemNameLabel, itemPriceLabel;
+    private JLabel itemNameLabel;
+    private JLabel itemPriceLabel;
     //private JTextField tfItemAmount;
 
     /**
      * JTextField Array from index 0 to 9 or item index 0 to 9
      */
-    JTextField[] tfNumBuy = new JTextField[10];
-    JTextField[] tfNumSell = new JTextField[10];
+    private JTextField[] tfNumBuy = new JTextField[10];
+    private JTextField[] tfNumSell = new JTextField[10];
     /**
      * every entry in totalPriceBuy and Sell is the amount multiply price for a single item
      * pricePerUnit: price per unit for each item
      */
-    int[] totalPriceBuy = new int[10];
-    int[] priceBuyPerUnit = new int[10];
-    int[] totalPriceSell = new int[10];
-    int[] priceSellPerUnit = new int[10];
+    private int[] totalPriceBuy = new int[10];
+    private int[] priceBuyPerUnit = new int[10];
+    private int[] totalPriceSell = new int[10];
+    private int[] priceSellPerUnit = new int[10];
 
 
 
@@ -78,16 +88,16 @@ public class MarketUI {
 
         //establish references for textfields
         for (int i = 0; i < 10; i++) {
-            tfNumBuy[i] = new JTextField("0",4);
+            tfNumBuy[i] = new JTextField("0", 4);
         }
         for (int j = 0; j < 10; j++) {
-            tfNumSell[j] = new JTextField("0",4);
+            tfNumSell[j] = new JTextField("0", 4);
         }
         //set up tf listeners
         armTextFields();
 
         //create main frame
-        marketFrame = new JFrame(planet.getRegionName()+ "'s Market");
+        marketFrame = new JFrame(planet.getRegionName() + "'s Market");
         this.mainPanel = new JPanel(new GridBagLayout());
         constraints.fill = GridBagConstraints.HORIZONTAL;
 
@@ -139,7 +149,7 @@ public class MarketUI {
                     JOptionPane.showMessageDialog(marketFrame, "Please enter wanted amount!",
                             "Message", JOptionPane.ERROR_MESSAGE);
                     //throw new NullPointerException("Please enter wanted amount!");
-                } else if (spaceNeeded > player.getShip().getCargoSpaceRemaining()){
+                } else if (spaceNeeded > player.getShip().getCargoSpaceRemaining()) {
                     JOptionPane.showMessageDialog(marketFrame, "You don't have sufficient space!",
                             "Message", JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -150,8 +160,6 @@ public class MarketUI {
                     }
                     formatSale();
                     formatBuy();
-//                    resetBuyList();
-//                    clearBuyWindow();
                 }
             }
         });
@@ -271,8 +279,6 @@ public class MarketUI {
                 sellPanel.add(tfNumSell[count]);
                 //tfNumSell[item.getKey()].setBounds(460, 20 + count1 * 30, 100,30);
                 priceSellPerUnit[count] = market.getSellPrice(item);
-//                System.out.println(market.getSellPrice(item));
-//                System.out.println(market.getBuyPrice(item));
 
             }
             count++;
@@ -289,31 +295,31 @@ public class MarketUI {
     public void updateTotalBill() {
         totalBill = 0;
         spaceNeeded = 0;
-        for(int i = 0; i < tfNumBuy.length; i++) {
+        for (int i = 0; i < tfNumBuy.length; i++) {
             totalPriceBuy[i] = parseInt(tfNumBuy[i]) * priceBuyPerUnit[i];
             spaceNeeded = spaceNeeded + parseInt(tfNumBuy[i]);
         }
-        for(int num : totalPriceBuy) {
+        for (int num : totalPriceBuy) {
             totalBill = totalBill + num;
         }
-        potentialTotalBill.setText("Your purchase will be " + totalBill +
-                " credits.");
+        potentialTotalBill.setText("Your purchase will be " + totalBill
+                + " credits.");
     }
 
     public void updateTotalGain() {
         totalGain = 0;
-        for(int i = 0; i < tfNumSell.length; i++) {
+        for (int i = 0; i < tfNumSell.length; i++) {
             totalPriceSell[i] = parseInt(tfNumSell[i]) * priceSellPerUnit[i];
         }
         totalGain = 0;
-        for( int num : totalPriceSell) {
+        for (int num : totalPriceSell) {
             totalGain = totalGain + num;
         }
         potentialTotalGain.setText("Your total sale will be " + totalGain + " credits.");
     }
 
     public void armTextFields() {
-        for(JTextField numBuy: tfNumBuy) {
+        for (JTextField numBuy: tfNumBuy) {
             numBuy.getDocument().addDocumentListener(new DocumentListener() {
                 public void insertUpdate(DocumentEvent e) {
                     updateTotalBill();
@@ -326,7 +332,7 @@ public class MarketUI {
                 }
             });
         }
-        for(JTextField numSell: tfNumSell) {
+        for (JTextField numSell: tfNumSell) {
             numSell.getDocument().addDocumentListener(new DocumentListener() {
                 public void insertUpdate(DocumentEvent e) {
                     updateTotalGain();
@@ -376,7 +382,7 @@ public class MarketUI {
 
     private void clearBuyWindow() {
         //more to implement
-        for(JTextField tf: tfNumBuy) {
+        for (JTextField tf: tfNumBuy) {
             tf.setText("0");
         }
         creditsAvailable.setText(String.valueOf(player.getCredit()));
@@ -385,7 +391,7 @@ public class MarketUI {
 
     private void clearSellWindow() {
         //more to implement
-        for(JTextField tf: tfNumSell) {
+        for (JTextField tf: tfNumSell) {
             tf.setText("0");
         }
         creditsAvailable.setText(String.valueOf(player.getCredit()));

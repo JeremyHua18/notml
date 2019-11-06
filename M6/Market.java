@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Random;
 
 public class Market {
     //keep track
@@ -43,8 +42,8 @@ public class Market {
     public int getSellPrice(Item item) {
         //item is depreciated by 0.8, but this is mitigated by merchant skill up to 120% of
         //base price in this region
-//        int cost = (int)(priceList.get(item)
-//                * (depreciation + 0.02 * gc.getPlayer().getMerchantSkill()));
+        //int cost = (int)(priceList.get(item)
+        //        * (depreciation + 0.02 * gc.getPlayer().getMerchantSkill()));
         int basePrice = priceList.get(item);
         double adjustedSellPrice = basePrice * 0.7;
         adjustedSellPrice = adjustedSellPrice * (1 + gc.getPlayer().getMerchantSkill() * 0.02);
@@ -52,8 +51,8 @@ public class Market {
     }
 
     public boolean isBuyable(Item item) {
-        return this.planet.getTechLevel().getTechValue() >= item.getMinProduceTech() &&
-                availableItems.get(item) > 0;
+        return this.planet.getTechLevel().getTechValue() >= item.getMinProduceTech()
+                && availableItems.get(item) > 0;
     }
 
     public boolean isSellable(Item item) {

@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public enum Item {
     WATER(0, "Water", 0, 0, 2, 30, 3),
     FRUIT(1, "FRUIT", 0, 0, 0, 250, 10),
@@ -25,7 +22,8 @@ public enum Item {
     //Price increase per tech level
     private final int increasePerLevel;
 
-    private Item(int key, String name, int minProduceTech, int minUseTech, int maxProduceTech, int base,
+    private Item(int key, String name, int minProduceTech, int minUseTech, int maxProduceTech,
+                 int base,
                  int increasePerLevel) {
         this.key = key;
         this.name = name;

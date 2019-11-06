@@ -14,8 +14,12 @@ public class Ship {
     private List<Integer> cargoList;
 
     protected enum ShipType {
-        WOOD("Wood", 3, 2000, 20), PLASTIC("Plastic", 3, 2000, 20), FIBERGLASS("Fiberglass", 3, 2000, 20), STEEL("Steel", 3, 2000, 20),
-        CARBONFIBER("Carbonfiber", 3, 2000, 20), DIAMOND("Diamond", 3, 2000, 20);
+        WOOD("Wood", 3, 2000, 20),
+        PLASTIC("Plastic", 3, 2000, 20),
+        FIBERGLASS("Fiberglass", 3, 2000, 20),
+        STEEL("Steel", 3, 2000, 20),
+        CARBONFIBER("Carbonfiber", 3, 2000, 20),
+        DIAMOND("Diamond", 3, 2000, 20);
         private String name;
         private int cargo;
         private int fuel;
@@ -60,12 +64,12 @@ public class Ship {
 
     @Override
     public String toString() {
-        return "Ship {" +
-                "Name ='" + shipName + '\'' +
-                ", Cargo Space Remaining=" + cargoSpaceRemaining +
-                ", Fuel Capacity Remaining=" + fuelCapacityRemaining +
-                ", Health Remaining=" + healthRemaining +
-                '}';
+        return "Ship {"
+                + "Name ='" + shipName + '\''
+                + ", Cargo Space Remaining=" + cargoSpaceRemaining
+                + ", Fuel Capacity Remaining=" + fuelCapacityRemaining
+                + ", Health Remaining=" + healthRemaining
+                + '}';
     }
 
     public void addCargo(Item item, int quantity) {
