@@ -16,6 +16,8 @@ public class BanditUI {
     private JButton payButton;
     private JButton fleeButton;
     private JButton fightButton;
+    private ImageIcon bandit;
+    private JLabel banditLabel;
 
     public BanditUI(GameController gameController, MapRegion previousRegion,
                     MapRegion desiredRegion) {
@@ -32,11 +34,18 @@ public class BanditUI {
         payButton = new JButton("Pay Bandit");
         fleeButton = new JButton("Flee Bandit");
         fightButton = new JButton("Fight Bandit");
+        try {
+            bandit = new ImageIcon(getClass().getResource("bandit.png"));
+            banditLabel = new JLabel(bandit);
+        } catch (NullPointerException ex) {
+            System.out.println("Planet image failed to load.");
+        }
         banditContainer = new JPanel(new GridLayout(2, 2));
         banditFrame.setSize(400, 400);
         banditContainer.add(payButton);
         banditContainer.add(fleeButton);
         banditContainer.add(fightButton);
+        banditContainer.add(banditLabel);
         banditFrame.add(banditContainer);
         banditFrame.setVisible(true);
         payButton.addActionListener(e -> {
@@ -83,6 +92,9 @@ public class BanditUI {
                         .getShip().getHealthRemaining() - 5);
                 JOptionPane.showMessageDialog(banditFrame, "You got away, but"
                                 + " lost 5 health in the process.",
+                        "Robbed", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(banditFrame, "Got away safely!",
                         "Robbed", JOptionPane.INFORMATION_MESSAGE);
             }
             banditFrame.setVisible(false);

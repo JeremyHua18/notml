@@ -15,6 +15,8 @@ public class TraderUI {
     private JLabel currTotalDisp;
     private int availableQuant;
     private int currNegotiatedPrice;
+    private ImageIcon trader;
+    private JLabel traderLabel;
 
     public TraderUI(GameController gameController, MapRegion previousRegion,
                     MapRegion desiredRegion) {
@@ -45,12 +47,19 @@ public class TraderUI {
         robButton = new JButton("Rob Trader");
         negotiateButton = new JButton("Negotiate with Trader");
         traderContainer = new JPanel(new GridLayout(4, 2));
-        traderFrame.setSize(400, 400);
+        try {
+            trader = new ImageIcon(getClass().getResource("trader.png"));
+            traderLabel = new JLabel(trader);
+        } catch (NullPointerException ex) {
+            System.out.println("Planet image failed to load.");
+        }
+        traderFrame.setSize(600, 400);
         traderContainer.add(buyButton);
         traderContainer.add(ignoreButton);
         traderContainer.add(robButton);
         traderContainer.add(negotiateButton);
         traderContainer.add(currTotalDisp);
+        traderContainer.add(traderLabel);
         traderFrame.add(traderContainer);
         traderFrame.setVisible(true);
         buyButton.addActionListener(e -> {

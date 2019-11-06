@@ -63,6 +63,7 @@ public class ConfigurationDisplayScreen {
                         startingLocation));
                 gameController.setMarketUI(new MarketUI(gameController, startingLocation));
                 gameController.showLocationUI(startingLocation);
+                new PlayerStatusUI(gameController);
             }
         });
 

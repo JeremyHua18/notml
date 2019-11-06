@@ -169,7 +169,7 @@ public class ConfigurationScreen extends JFrame {
                 if (diffLevel == 1) {
                     gameController.getPlayer().setBanditPossibility(0.25);
                     gameController.getPlayer().setPolicePossibility(0.25);
-                    gameController.getPlayer().setTraderPossibility(0.75);
+                    gameController.getPlayer().setTraderPossibility(0.5);
                 } else if (diffLevel == 2) {
                     gameController.getPlayer().setBanditPossibility(0.5);
                     gameController.getPlayer().setPolicePossibility(0.5);

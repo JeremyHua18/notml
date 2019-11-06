@@ -16,6 +16,8 @@ public class PoliceUI {
     private JButton forfeitButton;
     private JButton fleeButton;
     private JButton fightButton;
+    private ImageIcon cop;
+    private JLabel copLabel;
 
     public PoliceUI(GameController gameController, MapRegion previousRegion,
                     MapRegion desiredRegion) {
@@ -28,14 +30,21 @@ public class PoliceUI {
 
     public void configure() {
         policeFrame = new JFrame("Police Encountered!");
-        forfeitButton = new JButton("Forfeit Police");
-        fleeButton = new JButton("Flee Police");
+        forfeitButton = new JButton("Forfeit Cargo");
+        fleeButton = new JButton("Flee from Police");
         fightButton = new JButton("Fight Police");
         policeContainer = new JPanel(new GridLayout(2, 2));
+        try {
+            cop = new ImageIcon(getClass().getResource("police.png"));
+            copLabel = new JLabel(cop);
+        } catch (NullPointerException ex) {
+            System.out.println("Planet image failed to load.");
+        }
         policeFrame.setSize(400, 400);
         policeContainer.add(forfeitButton);
         policeContainer.add(fleeButton);
         policeContainer.add(fightButton);
+        policeContainer.add(copLabel);
         policeFrame.add(policeContainer);
         policeFrame.setVisible(true);
         forfeitButton.addActionListener(e -> {
