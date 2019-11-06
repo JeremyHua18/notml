@@ -30,6 +30,7 @@ public class BuyItemCommand {
     public void doItWithoutMarket() {
         thePlayer.getShip().addCargo(theItem, theQuantity);
         //player gets 10% discount for buying in bulk
-        thePlayer.setCredit(thePlayer.getCredit() - (int) (theItem.getBasePrice() * theQuantity * 0.9));
+        thePlayer.setCredit(thePlayer.getCredit()
+                - (int) (theItem.getBasePrice() * theQuantity * 0.9));
     }
 }

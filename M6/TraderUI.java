@@ -32,13 +32,18 @@ public class TraderUI {
             availableQuant = 1;
         }
         currNegotiatedPrice = (int) (availableItem.getBasePrice() * availableQuant * 0.9);
-        currTotalDisp = new JLabel("Trader offers " + availableQuant + " "
-                + availableItem.getName() + " for " + currNegotiatedPrice + " total.");
+        if (availableQuant >= 2) {
+            currTotalDisp = new JLabel("Trader offers " + availableQuant + " "
+                    + availableItem.getName() + "s for " + currNegotiatedPrice + " total.");
+        } else {
+            currTotalDisp = new JLabel("Trader offers " + availableQuant + " "
+                    + availableItem.getName() + " for " + currNegotiatedPrice + " total.");
+        }
         traderFrame = new JFrame("Trader Encountered!");
-        buyButton = new JButton("Buy Trader");
+        buyButton = new JButton("Buy from Trader");
         ignoreButton = new JButton("Ignore Trader");
         robButton = new JButton("Rob Trader");
-        negotiateButton = new JButton("Negotiate Trader");
+        negotiateButton = new JButton("Negotiate with Trader");
         traderContainer = new JPanel(new GridLayout(4, 2));
         traderFrame.setSize(400, 400);
         traderContainer.add(buyButton);
@@ -46,6 +51,7 @@ public class TraderUI {
         traderContainer.add(robButton);
         traderContainer.add(negotiateButton);
         traderContainer.add(currTotalDisp);
+        traderFrame.add(traderContainer);
         traderFrame.setVisible(true);
         buyButton.addActionListener(e -> {
             if (gameController.getPlayer().getShip().getCargoSpaceRemaining() >= availableQuant) {
@@ -54,7 +60,7 @@ public class TraderUI {
                     gameController.getPlayer().setCredit(gameController.getPlayer()
                             .getCredit() - currNegotiatedPrice);
                     gameController.getPlayer().getShip().addCargo(availableItem, availableQuant);
-                    JOptionPane.showConfirmDialog(traderFrame, "Successfully purchased "
+                    JOptionPane.showMessageDialog(traderFrame, "Successfully purchased "
                                     + availableItem.getName() + " for "
                                     + currNegotiatedPrice + "!",
                             "Purchase Confirmed", JOptionPane.INFORMATION_MESSAGE);
@@ -74,9 +80,9 @@ public class TraderUI {
             gameController.showLocationUI();
         });
         ignoreButton.addActionListener(e -> {
-            JOptionPane.showConfirmDialog(traderFrame, "Trader ignored, you have "
-                            + "proceeded to " + desiredRegion.getRegionName() + "."
-                    , "Trader Ignored", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(traderFrame, "Trader ignored, you have "
+                            + "proceeded to " + desiredRegion.getRegionName() + ".",
+                    "Trader Ignored", JOptionPane.INFORMATION_MESSAGE);
             traderFrame.setVisible(false);
             gameController.getPlayer().setCurrentLocation(desiredRegion);
             gameController.getLocationUI().configure(desiredRegion);
@@ -86,7 +92,7 @@ public class TraderUI {
             if (Math.random() * gameController.getPlayer().getFighterSkill() > 5) {
                 if (gameController.getPlayer().getShip()
                         .getCargoSpaceRemaining() >= availableQuant) {
-                    JOptionPane.showConfirmDialog(traderFrame, "Successfully robbed "
+                    JOptionPane.showMessageDialog(traderFrame, "Successfully robbed "
                                     + "trader of their "
                                     + availableItem.getName() + "!",
                             "Robbery Confirmed", JOptionPane.INFORMATION_MESSAGE);
@@ -95,13 +101,13 @@ public class TraderUI {
                 } else {
                     int partialTotal = gameController.getPlayer().getShip()
                             .getCargoSpaceRemaining();
-                    JOptionPane.showConfirmDialog(traderFrame, "Successfully robbed "
+                    JOptionPane.showMessageDialog(traderFrame, "Successfully robbed "
                                     + "trader of " + partialTotal + " of their "
                                     + availableItem.getName() + "!",
                             "Robbery Confirmed", JOptionPane.INFORMATION_MESSAGE);
                 }
             } else {
-                JOptionPane.showConfirmDialog(traderFrame, "Failed to rob "
+                JOptionPane.showMessageDialog(traderFrame, "Failed to rob "
                                 + "trader of their "
                                 + availableItem.getName() + "! You got beat up and lost 5 health!",
                         "Robbery Failed", JOptionPane.INFORMATION_MESSAGE);
@@ -144,7 +150,12 @@ public class TraderUI {
     }
 
     public void updateCurrTotalDisp() {
-        currTotalDisp.setText("Trader offers " + availableQuant + " "
-                + availableItem.getName() + " for " + currNegotiatedPrice + " total.");
+        if (availableQuant >= 2) {
+            currTotalDisp.setText("Trader offers " + availableQuant + " "
+                    + availableItem.getName() + "s for " + currNegotiatedPrice + " total.");
+        } else {
+            currTotalDisp.setText("Trader offers " + availableQuant + " "
+                    + availableItem.getName() + "s for " + currNegotiatedPrice + " total.");
+        }
     }
 }

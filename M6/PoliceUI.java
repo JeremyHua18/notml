@@ -33,15 +33,19 @@ public class PoliceUI {
         fightButton = new JButton("Fight Police");
         policeContainer = new JPanel(new GridLayout(2, 2));
         policeFrame.setSize(400, 400);
-        policeFrame.add(forfeitButton);
-        policeFrame.add(fleeButton);
-        policeFrame.add(fightButton);
+        policeContainer.add(forfeitButton);
+        policeContainer.add(fleeButton);
+        policeContainer.add(fightButton);
+        policeFrame.add(policeContainer);
         policeFrame.setVisible(true);
         forfeitButton.addActionListener(e -> {
             gameController.getPlayer().getShip()
                     .setCargoList(new ArrayList<>(Collections.nCopies(Item.values().length, 0)));
             gameController.getPlayer().getShip()
                     .setCargoSpaceRemaining(gameController.getPlayer().getShip().getCargoSpace());
+            JOptionPane.showMessageDialog(policeFrame, "You turned over your cargo. "
+                            + "Now you have extra space for items!",
+                    "Police Encounter", JOptionPane.INFORMATION_MESSAGE);
             policeFrame.setVisible(false);
             gameController.getPlayer().setCurrentLocation(desiredRegion);
             gameController.getLocationUI().configure(desiredRegion);
@@ -57,6 +61,12 @@ public class PoliceUI {
                                 .length, 0)));
                 gameController.getPlayer().getShip().setCargoSpaceRemaining(gameController
                         .getPlayer().getShip().getCargoSpace());
+                JOptionPane.showMessageDialog(policeFrame, "You did not successfully "
+                                + "flee. You lost 30 credits and 5 health.",
+                        "Police Encounter", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(policeFrame, "You escaped the police! Nice!",
+                        "Police Encounter", JOptionPane.INFORMATION_MESSAGE);
             }
             policeFrame.setVisible(false);
             gameController.getPlayer().setCurrentLocation(previousRegion);
@@ -73,6 +83,13 @@ public class PoliceUI {
                                 .length, 0)));
                 gameController.getPlayer().getShip().setCargoSpaceRemaining(gameController
                         .getPlayer().getShip().getCargoSpace());
+                JOptionPane.showMessageDialog(policeFrame, "You lost the fight."
+                                + " You lost 30 credits and 5 health.",
+                        "Police Encounter", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(policeFrame, "You beat up the cop and"
+                                + " escaped. Nice!",
+                        "Police Encounter", JOptionPane.INFORMATION_MESSAGE);
             }
             policeFrame.setVisible(false);
             gameController.getPlayer().setCurrentLocation(desiredRegion);

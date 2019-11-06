@@ -42,6 +42,9 @@ public class BanditUI {
         payButton.addActionListener(e -> {
             if (gameController.getPlayer().getCredit() >= 200) {
                 gameController.getPlayer().setCredit(gameController.getPlayer().getCredit() - 200);
+                JOptionPane.showMessageDialog(banditFrame, "You paid 200 credits"
+                                + " to escape!",
+                        "Robbed", JOptionPane.INFORMATION_MESSAGE);
             } else if (gameController.getPlayer().getShip().getCargoSpace() != gameController
                     .getPlayer().getShip().getCargoSpaceRemaining()) {
                 gameController.getPlayer().getShip()
@@ -50,12 +53,22 @@ public class BanditUI {
                 gameController.getPlayer().getShip()
                         .setCargoSpaceRemaining(gameController.getPlayer()
                                 .getShip().getCargoSpace());
+                JOptionPane.showMessageDialog(banditFrame, "Your inventory was "
+                                + "stolen, at least you have extra room now!",
+                        "Robbed", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (gameController.getPlayer().getShip().getHealthRemaining() >= 5) {
                     gameController.getPlayer().getShip().setHealthRemaining(gameController
                             .getPlayer().getShip().getHealthRemaining() - 5);
+                    JOptionPane.showMessageDialog(banditFrame, "You took 5 damage"
+                                    + " before escaping to " + desiredRegion.getRegionName()
+                                    + "!",
+                            "Robbed", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     gameController.getPlayer().getShip().setHealthRemaining(0);
+                    JOptionPane.showMessageDialog(banditFrame, "Your ship has been "
+                                    + "destroyed! Enjoy the cold vacuum of space.",
+                            "Robbed", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             banditFrame.setVisible(false);
@@ -68,6 +81,9 @@ public class BanditUI {
                 gameController.getPlayer().setCredit(0);
                 gameController.getPlayer().getShip().setHealthRemaining(gameController.getPlayer()
                         .getShip().getHealthRemaining() - 5);
+                JOptionPane.showMessageDialog(banditFrame, "You got away, but"
+                                + " lost 5 health in the process.",
+                        "Robbed", JOptionPane.INFORMATION_MESSAGE);
             }
             banditFrame.setVisible(false);
             gameController.getPlayer().setCurrentLocation(previousRegion);
@@ -76,8 +92,14 @@ public class BanditUI {
         });
         fightButton.addActionListener(e -> {
             if (Math.random() * gameController.getPlayer().getFighterSkill() > 7) {
-                gameController.getPlayer().setCredit(gameController.getPlayer().getCredit() + 50);
+                gameController.getPlayer().setCredit(gameController.getPlayer().getCredit() + 100);
+                JOptionPane.showMessageDialog(banditFrame, "You fought and won- you"
+                                + " gained 100 credits!",
+                        "Robbed", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                JOptionPane.showMessageDialog(banditFrame, "You lost the fight, and lost"
+                                + " 5 health in addition to all of your credits.",
+                        "Robbed", JOptionPane.INFORMATION_MESSAGE);
                 gameController.getPlayer().setCredit(0);
                 gameController.getPlayer().getShip().setHealthRemaining(gameController.getPlayer()
                         .getShip().getHealthRemaining() - 5);
