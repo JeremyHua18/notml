@@ -33,6 +33,8 @@ public class Market {
     public int getBuyPrice(Item item) {
         int cost = priceList.get(item);
         cost -= (gc.getPlayer().getMerchantSkill() * 10);
+        int karmaAdj = (int) ((gc.getPlayer().getKarmaPercent() * 100) - 100);
+        cost -= karmaAdj;
         if (cost <= 10) {
             cost = 10;
         }
@@ -47,6 +49,8 @@ public class Market {
         int basePrice = priceList.get(item);
         double adjustedSellPrice = basePrice * 0.7;
         adjustedSellPrice = adjustedSellPrice * (1 + gc.getPlayer().getMerchantSkill() * 0.02);
+        int karmaAdj = (int) ((gc.getPlayer().getKarmaPercent() * 100) - 100);
+        adjustedSellPrice += karmaAdj;
         return (int) adjustedSellPrice;
     }
 
